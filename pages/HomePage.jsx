@@ -5,15 +5,15 @@ import Nav from "@/components/Nav";
 import Numbers from "@/components/Numbers";
 import Reviews from "@/components/Reviews";
 
-export default function Home()
+export default function HomePage()
 {
     return (
         <>
         <Nav/>
         <Landing/>
         <Features/>
-        <Numbers/>
         <Reviews/>
+        <Numbers/>
         <Footer />
         </>
     )

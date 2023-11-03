@@ -1,3 +1,5 @@
+import LoginModal from "./modals/LoginModal";
+
 export default function Landing() {
   return (
 
@@ -17,10 +19,10 @@ export default function Landing() {
               <br class="remove--tablet" />
               and even people who don’t like to read.
             </div>
-            <button class="btn home__cta--btn">Login</button>
+            <LoginModal/>
           </div>
           <figure class="landing__image--mask">
-            <img src="" alt="landing" />
+            <img src="/assets/landing.png" alt="landing" />
           </figure>
         </div>
       </div>

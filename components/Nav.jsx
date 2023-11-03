@@ -3,7 +3,7 @@ export default function Nav() {
     <nav class="nav">
       <div class="nav__wrapper">
         <figure class="nav__img--mask">
-          <img class="nav__img" src="" alt="logo" />
+          <img class="nav__img" src="/assets/logo.png" alt="logo" />
         </figure>
         <ul class="nav__list--wrapper">
           <li class="nav__list nav__list--login">Login</li>
