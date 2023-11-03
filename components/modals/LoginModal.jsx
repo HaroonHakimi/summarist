@@ -11,14 +11,14 @@ export default function LoginModal()
         <>
         <button 
         onClick={() => dispatch(openLoginModal())}
-        className="btn home__cta--btn"
+        className="btn home__cta--btn border border-black"
         >
             Login
         <Modal
         open={isOpen}
         onClose={() => dispatch(closeLoginModal())}
         >
-            <h1 className="text-blue-500" >
+            <h1 className="text-blue-500 border border-black" >
                 john
             </h1>
         </Modal>
