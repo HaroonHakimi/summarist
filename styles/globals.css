@@ -453,6 +453,24 @@ button:disabled {
   font-weight: 500;
 }
 
+.loginModal__sub--title
+{
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 60px;
+}
+
+.loginModal__sub--title::before, .loginModal__sub--title::after
+{
+  content: "";
+  height: 1px;
+  width: 100px;
+  background-color: #bac8ce;
+  display: block;
+}
+
 @media (max-width: 768px) {
   .landing__content {
     display: flex;
