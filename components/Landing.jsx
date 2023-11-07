@@ -1,8 +1,11 @@
+import { useDispatch } from "react-redux";
 import LoginModal from "./modals/LoginModal";
+import { openLoginModal } from "@/redux/modalSlice";
 
 export default function Landing() {
-  return (
+  const dispatch = useDispatch()
 
+  return (
   <section id="landing">
     <div class="container">
       <div class="row">
@@ -19,6 +22,12 @@ export default function Landing() {
               <br class="remove--tablet" />
               and even people who don’t like to read.
             </div>
+            <button
+            onClick={() => dispatch(openLoginModal())}
+            className="btn home__cta--btn "
+            >
+              Login
+            </button>
             <LoginModal/>
           </div>
           <figure class="landing__image--mask">
