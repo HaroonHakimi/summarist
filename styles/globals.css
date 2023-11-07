@@ -471,6 +471,19 @@ button:disabled {
   display: block;
 }
 
+.spin__animation {
+ animation: spin 300ms alternate-reverse;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
 @media (max-width: 768px) {
   .landing__content {
     display: flex;
