@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import LoginModal from "./modals/LoginModal";
 import { openLoginModal } from "@/redux/modalSlice";
+import SignupModal from "./modals/SignupModal";
 
 export default function Landing() {
   const dispatch = useDispatch()
@@ -29,6 +30,7 @@ export default function Landing() {
               Login
             </button>
             <LoginModal/>
+            <SignupModal/>
           </div>
           <figure class="landing__image--mask">
             <img src="/assets/landing.png" alt="landing" />

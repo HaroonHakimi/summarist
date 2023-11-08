@@ -12,15 +12,27 @@ import SignupModal from "./SignupModal";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useRouter } from "next/router";
 
 export default function LoginModal() {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.modals.loginModalOpen);
+  const router = useRouter()
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [loginError, setLoginError] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
+
+  function signUp() {
+    dispatch(closeLoginModal())
+    dispatch(openSignupModal())
+  }
+
+  function pushToForYouPage()
+  {
+    router.push("/for-you")
+  }
 
   async function handleLogin() {
     setLoginLoading(true);
@@ -29,6 +41,7 @@ export default function LoginModal() {
       dispatch(closeLoginModal());
       setLoginError(false);
       setLoginLoading(false);
+      pushToForYouPage()
     } catch (error) {
       setLoginError(true);
       setLoginLoading(false);
@@ -44,6 +57,7 @@ export default function LoginModal() {
     );
     setLoginLoading(false);
     dispatch(closeLoginModal());
+    pushToForYouPage()
   }
 
   return (
@@ -104,12 +118,11 @@ export default function LoginModal() {
 
             <div className=" absolute bottom-0 w-full bg-[#f1f6f4] flex justify-center items-center p-2 hover:bg-[#E1E9E8]">
               <button
-                onClick={() => dispatch(openSignupModal())}
+                onClick={signUp}
                 className=" text-[#116be9]"
               >
                 Don't have an Account?
               </button>
-              <SignupModal />
             </div>
             <div
               className="absolute top-5 right-5 text-lg cursor-pointer"

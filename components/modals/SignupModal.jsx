@@ -24,6 +24,16 @@ export default function SignupModal() {
   const [password, setPassword] = useState("");
   const [signUpError, setSignUpError] = useState(false)
 
+  function login()
+  {
+    dispatch(closeSignupModal())
+    dispatch(openLoginModal())
+  }
+
+  function pushToForYouPage()
+  {
+    router.push("/for-you")
+  }
 
   async function createUser() {
     try {
@@ -34,6 +44,7 @@ export default function SignupModal() {
       );
       dispatch(closeSignupModal());
       setSignUpError(false)
+      pushToForYouPage()
     }
     catch (error)
     {
@@ -92,7 +103,7 @@ export default function SignupModal() {
             </button>
             <div className=" absolute bottom-0 w-full bg-[#f1f6f4] flex justify-center items-center p-2 hover:bg-[#E1E9E8]">
               <button
-                onClick={() => dispatch(openLoginModal())}
+                onClick={login}
                 className=" text-[#116be9]"
               >
                 Already have an account?
