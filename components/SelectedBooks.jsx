@@ -3,10 +3,12 @@ import RecommendedBooks from "./RecommendedBooks";
 import SuggestedBooks from "./SuggestedBooks";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
 
-export async function getServerSideProps()
+export default function SelectedBooks()
 {
   const [selectedData, setSelectedData] = useState([])
+  const router = useRouter()
 
   async function fetchSelectedData()
   {
@@ -18,33 +20,29 @@ export async function getServerSideProps()
     fetchSelectedData()
   },[])
 
-  return {
-    props: {
-      selected: selectedData,
-      
-    }
-  }
-}
-
-export default function SelectedBooks({selected})
-{
     return (
         <div className="py-8 md:pl-72 lg:pl-72  px-6 2xl:px-96 ">
-          <div className="">
+          {
+                selectedData?.map((book) => (
+          <div 
+            onClick={() => router.push(`/book/${book.id}`)}
+          >
             <div className="mb-4">
               <h1 className="font-bold text-2xl">Selected just for you</h1>
             </div>
-            {
-                selected?.map((book) => (
+            
 
-            <div className=" w-full lg:w-[70%] bg-[#fbefd6] rounded-md p-5 flex items-center space-y-6">
-              <div>
-                <h2 className="text-sm md:text-md ">
-                  {book.subtitle}
+
+            <div className=" w-full lg:w-[90%] bg-[#fbefd6] rounded-md p-5 flex  space-y-6 cursor-pointer">
+              <div className="w-[300px] mr-2 flex items-center">
+                <h2 className="text-[16px] md:text-md w-full ">
+                  {book.subTitle}
                 </h2>
               </div>
-              <div className="flex ">
-                <figure className="flex  justify-center items-start">
+              <div className="hidden md:flex content-none w-[1px] h-[140px] bg-[#bac8ce] mr-2"></div>
+
+              <div className="flex w-full justify-center">
+                <figure className="max-w-[140px] flex  justify-center items-start">
                   <img src={book.imageLink} alt="" />
                 </figure>
                 <div className="ml-6">
@@ -58,10 +56,13 @@ export default function SelectedBooks({selected})
                   </div>
                 </div>
               </div>
+
             </div>
-                ))
-            }
+
+              
           </div>
+          ))
+        }
 
             <RecommendedBooks title={"Recommended For You"} subtitle={"We think you'll like these"} />
             <SuggestedBooks title={"Suggested Books"} subtitle={"Browse those books"}/>
