@@ -6,7 +6,7 @@ import { LiaMarkerSolid } from 'react-icons/lia'
 
 export default function SideNav() {
   return (
-    <div className="hidden md:flex  w-[250px] h-screen flex flex-col justify-between bg-[#f7faf9]">
+    <div className="hidden md:flex  w-[250px] h-full  flex-col justify-between bg-[#f7faf9] fixed ">
       <div className="flex flex-col justify-center items-start pt-4">
         <div className="px-4">
           <img className="w-[160px] h-[40px]" src="/assets/logo.png" />
@@ -23,7 +23,7 @@ export default function SideNav() {
           <NavList icon={<HiOutlineMagnifyingGlass />} title={"Search"} />
         </div>
       </div>
-      <div className="text-[#032b41] mt-6 flex flex-col justify-between">
+      <div className="text-[#032b41] flex flex-col justify-between">
         <div className="text-[#032b41] mt-12 ">
           <div>
             <NavList icon={<AiOutlineSetting />} title={"Settings"} />
