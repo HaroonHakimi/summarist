@@ -13,6 +13,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useRouter } from "next/router";
+import { setUser } from "@/redux/userSlice";
 
 export default function LoginModal() {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ export default function LoginModal() {
   function signUp() {
     dispatch(closeLoginModal())
     dispatch(openSignupModal())
+    dispatch(setUser())
   }
 
   function pushToForYouPage()
@@ -60,11 +62,17 @@ export default function LoginModal() {
     pushToForYouPage()
   }
 
+  function closeModal()
+  {
+    dispatch(closeLoginModal())
+    setLoginError(false)
+  }
+
   return (
     <>
       <Modal
         open={isOpen}
-        onClose={() => dispatch(closeLoginModal())}
+        onClose={closeModal}
         className="flex justify-center items-center "
       >
         <div className="relative bg-white w-[400px] h-[430px] pt-[48px] px-[32px] pb-[24px] rounded-md overflow-hidden">

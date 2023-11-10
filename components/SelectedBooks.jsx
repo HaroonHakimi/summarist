@@ -21,7 +21,7 @@ export default function SelectedBooks()
   },[])
 
     return (
-        <div className="py-8 md:pl-72 lg:pl-72  px-6 2xl:px-96 ">
+        <div className="py-8 md:pl-72 lg:pl-72  px-6 2xl:pl-96 2xl:pr-32">
           {
                 selectedData?.map((book) => (
           <div 

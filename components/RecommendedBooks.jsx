@@ -11,9 +11,7 @@ export default function RecommendedBooks({ title, subtitle }) {
         <h1 className="font-bold text-xl mb-2">{title}</h1>
         <h3 className="text-[#394547] text-md">{subtitle}</h3>
       </div>
-      <div className="flex w-full  flex-wrap ">
-        <RecommendedBook />
-      </div>
+      <RecommendedBook />
     </div>
   );
 }
@@ -34,16 +32,16 @@ export function RecommendedBook() {
   }, []);
 
   return (
-    <>
+    <div className="flex w-full overflow-x-auto snap-x snap-mandatory no-scrollbar space-x-3.5">
       {recommendedData?.map((book) => (
         <div
           onClick={() => router.push(`/book/${book.id}`)}
-          className="relative cursor-pointer w-[25%]  px-2 py-10 space-y-1 hover:bg-[#f0efef] flex flex-col items-start justify-start"
+          className="relative cursor-pointer   px-2 py-10 space-y-1 hover:bg-[#f0efef] flex flex-col items-start justify-start flex-shrink-0 snap-start"
         >
           <figure className=" flex items-center">
             <img src={book.imageLink} alt="" className="w-[172px]" />
           </figure>
-          <div className="flex flex-col items-start justify-center space-y-1">
+          <div className="max-w-[172px] flex flex-col items-start justify-center space-y-1">
             <h2 className="font-bold text-md leading-5">{book.title}</h2>
             <h2 className="text-sm text-[#6b757b]">{book.author}</h2>
             <h2 className="text-sm text-[#394547]">{book.subTitle}</h2>
@@ -58,16 +56,13 @@ export function RecommendedBook() {
               </div>
             </div>
           </div>
-          {
-            book.subscriptionRequired && (
-              <div className="text-white text-[8px] rounded-2xl py-1 px-2 bg-[#032b41] absolute top-1 right-1">
-            <span>Premium</span>
-          </div>
-            )
-          }
-          
+          {book.subscriptionRequired && (
+            <div className="text-white text-[8px] rounded-2xl py-1 px-2 bg-[#032b41] absolute top-1 right-1">
+              <span>Premium</span>
+            </div>
+          )}
         </div>
       ))}
-    </>
+    </div>
   );
 }

@@ -1,8 +1,15 @@
+import BookPage from "@/components/BookPage";
+import SearchBar from "@/components/SearchBar";
+import SideNav from "@/components/SideNav";
+
+
 export default function UserBook()
 {
     return (
         <>
-        Hi
+        <SideNav/>
+        <SearchBar/>
+        <BookPage/>
         </>
     )
 }

@@ -4,9 +4,24 @@ import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import { RxExit } from "react-icons/rx"
 import { LiaMarkerSolid } from 'react-icons/lia'
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { signOut } from "firebase/auth";
+import { signOutUser } from "@/redux/userSlice";
+import { auth } from "@/firebase";
+import { openLoginModal } from "@/redux/modalSlice";
 
 export default function SideNav() {
   const router = useRouter()
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
+  
+
+  async function logout()
+  {
+    await signOut(auth)
+    dispatch(signOutUser())
+    dispatch(openLoginModal())
+  }
 
   return (
     <div className="hidden md:flex  w-[250px] h-full  flex-col justify-between bg-[#f7faf9] fixed transition-all delay-300 ">
@@ -31,7 +46,18 @@ export default function SideNav() {
           <div>
             <NavList icon={<AiOutlineSetting />} title={"Settings"} />
             <NavList icon={<AiOutlineQuestionCircle />} title={"Help & Support"} nodrop={"cursor-not-allowed"} />
-            <NavList icon={<RxExit />} title={"Logout"} />
+
+            <div onClick={logout}>
+              {
+                user ? (
+                  <NavList icon={<RxExit />} title={"Logout"} />
+                )
+                : (
+                  <NavList icon={<RxExit />} title={"Login"}/>
+                )
+              }
+            
+            </div>
           </div>
         </div>
       </div>

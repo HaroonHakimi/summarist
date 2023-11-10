@@ -35,6 +35,12 @@ export default function SignupModal() {
     router.push("/for-you")
   }
 
+  function closeModal()
+  {
+    dispatch(closeSignupModal())
+    setSignUpError(false)
+  }
+
   async function createUser() {
     try {
       const userCredentials = await createUserWithEmailAndPassword(
@@ -71,7 +77,7 @@ export default function SignupModal() {
       
       <Modal
         open={isOpen}
-        onClose={() => dispatch(closeSignupModal())}
+        onClose={closeModal}
         className="flex justify-center items-center "
       >
         <div className="relative bg-white w-[400px] h-[350px] pt-[48px] px-[32px] pb-[24px] rounded-md overflow-hidden">
