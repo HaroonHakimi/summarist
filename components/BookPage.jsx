@@ -21,7 +21,7 @@ export default function BookPage({ id }) {
 
   return (
     <div className="py-8 px-6 md:pl-72 2xl:pl-96 2xl:pr-32">
-      <div className=" flex md:flex-col-reverse text-[#032b41]">
+      <div className="flex-col-reverse md:flex text-[#032b41]">
         <div>
           <div className="flex flex-col justify-start space-y-3 border-b border-[#e1e7ea] pb-4">
             <h1 className="text-[32px] font-bold">
