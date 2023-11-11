@@ -4,34 +4,30 @@ import SuggestedBooks from "./SuggestedBooks";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
-export default function SelectedBooks()
-{
-  const [selectedData, setSelectedData] = useState([])
-  const router = useRouter()
+export default function SelectedBooks() {
+  const [selectedData, setSelectedData] = useState([]);
 
-  async function fetchSelectedData()
-  {
-    const { data } = await axios.get(`https://us-central1-summaristt.cloudfunctions.net/getBooks?status=selected`)
-    setSelectedData(data)
+  async function fetchSelectedData() {
+    const { data } = await axios.get(
+      `https://us-central1-summaristt.cloudfunctions.net/getBooks?status=selected`
+    );
+    setSelectedData(data);
   }
-  
-  useEffect(() => {
-    fetchSelectedData()
-  },[])
 
-    return (
-        <div className="py-8 md:pl-72 lg:pl-72  px-6 2xl:pl-96 2xl:pr-32">
-          {
-                selectedData?.map((book) => (
-          <div 
-            onClick={() => router.push(`/book/${book.id}`)}
-          >
+  useEffect(() => {
+    fetchSelectedData();
+  }, []);
+
+  return (
+    <div className="py-8 md:pl-72 lg:pl-72  px-6 2xl:pl-96 2xl:pr-32">
+      {selectedData?.map((book) => (
+        <Link key={book.id} href={"/book/" + book.id}>
+          <div>
             <div className="mb-4">
               <h1 className="font-bold text-2xl">Selected just for you</h1>
             </div>
-            
-
 
             <div className=" w-full lg:w-[90%] bg-[#fbefd6] rounded-md p-5 flex  space-y-6 cursor-pointer">
               <div className="w-[300px] mr-2 flex items-center">
@@ -56,16 +52,19 @@ export default function SelectedBooks()
                   </div>
                 </div>
               </div>
-
             </div>
-
-              
           </div>
-          ))
-        }
+        </Link>
+      ))}
 
-            <RecommendedBooks title={"Recommended For You"} subtitle={"We think you'll like these"} />
-            <SuggestedBooks title={"Suggested Books"} subtitle={"Browse those books"}/>
-        </div>
-    )
+      <RecommendedBooks
+        title={"Recommended For You"}
+        subtitle={"We think you'll like these"}
+      />
+      <SuggestedBooks
+        title={"Suggested Books"}
+        subtitle={"Browse those books"}
+      />
+    </div>
+  );
 }

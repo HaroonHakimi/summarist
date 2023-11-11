@@ -37,15 +37,15 @@ export default function SideNav() {
           />
 
           <NavList icon={<BsBookmark />} title={"My Library"} />
-          <NavList icon={<LiaMarkerSolid />} title={"Highlights"} nodrop={"cursor-not-allowed"}/>
-          <NavList icon={<HiOutlineMagnifyingGlass />} title={"Search"} nodrop={"cursor-not-allowed"} />
+          <NavList icon={<LiaMarkerSolid />} title={"Highlights"} nodrop={"cursor-no-drop"}/>
+          <NavList icon={<HiOutlineMagnifyingGlass />} title={"Search"} nodrop={"cursor-no-drop"} />
         </div>
       </div>
       <div className="text-[#032b41] flex flex-col justify-between">
         <div className="text-[#032b41] mt-12 ">
           <div>
             <NavList icon={<AiOutlineSetting />} title={"Settings"} />
-            <NavList icon={<AiOutlineQuestionCircle />} title={"Help & Support"} nodrop={"cursor-not-allowed"} />
+            <NavList icon={<AiOutlineQuestionCircle />} title={"Help & Support"} nodrop={"cursor-no-drop"} />
 
             <div onClick={logout}>
               {

@@ -1,4 +1,5 @@
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AiOutlineStar } from "react-icons/ai";
@@ -34,9 +35,9 @@ export function SuggestedBook() {
   return (
       <div className="flex overflow-x-auto snap-x snap-mandatory no-scrollbar space-x-3.5">
         {suggestedData?.map((book) => (
+          <Link key={book.id} href={"/book/"+book.id} className="flex-shrink-0 snap-start">
           <div
-            onClick={() => router.push(`/book/${book.id}`)}
-            className="relative cursor-pointer px-2 py-10 space-y-1 hover:bg-[#f0efef] flex flex-col items-start justify-start flex-shrink-0 snap-start"
+            className="relative cursor-pointer px-2 py-10 space-y-1 hover:bg-[#f0efef] flex flex-col items-start justify-start"
           >
             <figure className=" flex items-center">
               <img src={book.imageLink} alt="" className="w-[172px]" />
@@ -62,6 +63,7 @@ export function SuggestedBook() {
               </div>
             )}
           </div>
+          </Link>
         ))}
       </div>
   );
