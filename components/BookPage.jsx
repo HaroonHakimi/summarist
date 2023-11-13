@@ -8,14 +8,35 @@ import { BiMicrophone } from "react-icons/bi";
 import { BsBook, BsBookmark } from "react-icons/bs";
 import { HiOutlineLightBulb } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
+import LoginModal from "./modals/LoginModal";
+import { FaBookmark } from "react-icons/fa";
 
 export default function BookPage() {
   const [bookData, setBookData] = useState([]);
+  const [addBook, setAddBook] = useState(false);
   const router = useRouter();
   const { id } = router.query;
 
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  function buttonDestination() {
+    if (!user.currentUser) {
+      return dispatch(openLoginModal());
+    }
+
+    if (bookData.subscriptionRequired && !user.subscribed) {
+      router.push("/choose-plan");
+    } else if (!bookData.subscriptionRequired || user.subscribed) {
+      router.push(`/player/${id}`);
+    }
+  }
+
+  function addBookToLibrary() {
+    if (user.currentUser) {
+      setAddBook(true);
+    }
+  }
 
   async function fetchData() {
     const { data } = await axios.get(
@@ -72,17 +93,17 @@ export default function BookPage() {
 
             <div className="space-y-6 mt-6">
               <div className="flex space-x-4">
-                <Link href={"/choose-plan"}>
-                <button
-                  className="flex justify-center items-center text-lg space-x-2 px-8 py-2 bg-[#032b41] text-[#fff] rounded-md  hover:opacity-80 "
-                >
+                <button 
+                onClick={buttonDestination}
+                className="flex justify-center items-center text-lg space-x-2 px-8 py-2 bg-[#032b41] text-[#fff] rounded-md  hover:opacity-80 ">
                   <i>
                     <BsBook />
                   </i>
                   <span className="text-[18px] md-text-[16px]">Read</span>
                 </button>
-                </Link>
-                <button className="flex justify-center items-center text-lg space-x-2 px-8 py-2 bg-[#032b41] text-[#fff] rounded-md text-[24px] hover:opacity-80 ">
+                <button 
+                onClick={buttonDestination}
+                className="flex justify-center items-center text-lg space-x-2 px-8 py-2 bg-[#032b41] text-[#fff] rounded-md text-[24px] hover:opacity-80 ">
                   <i>
                     <BiMicrophone />
                   </i>
@@ -90,10 +111,32 @@ export default function BookPage() {
                 </button>
               </div>
 
-              <div className="text-[#0365f2]  text-lg flex items-center space-x-2 cursor-no-drop">
-                <BsBookmark />
-                <h1>Add Title to my Library</h1>
-              </div>
+              {user.currentUser ? (
+                <div
+                  onClick={addBookToLibrary}
+                  className="text-[#0365f2]  text-lg flex items-center space-x-2 hover:text-[black] cursor-pointer"
+                >
+                  {addBook ? (
+                    <>
+                      <FaBookmark />
+                      <h1>Saved to my Library</h1>
+                    </>
+                  ) : (
+                    <>
+                      <BsBookmark />
+                      <h1>Add Title to my Library</h1>
+                    </>
+                  )}
+                </div>
+              ) : (
+                <div
+                  onClick={() => dispatch(openLoginModal())}
+                  className="text-[#0365f2]  text-lg flex items-center space-x-2 hover:text-[black] cursor-pointer"
+                >
+                  <BsBookmark />
+                  <h1>Add Title to my Library</h1>
+                </div>
+              )}
             </div>
 
             <div className="mt-8">

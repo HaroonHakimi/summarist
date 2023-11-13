@@ -31,10 +31,7 @@ export default function LoginModal() {
     dispatch(setUser())
   }
 
-  function pushToForYouPage()
-  {
-    router.push("/for-you")
-  }
+  
 
   async function handleLogin() {
     setLoginLoading(true);
@@ -43,7 +40,7 @@ export default function LoginModal() {
       dispatch(closeLoginModal());
       setLoginError(false);
       setLoginLoading(false);
-      pushToForYouPage()
+      router.push("/for-you")
     } catch (error) {
       setLoginError(true);
       setLoginLoading(false);
@@ -59,7 +56,7 @@ export default function LoginModal() {
     );
     setLoginLoading(false);
     dispatch(closeLoginModal());
-    pushToForYouPage()
+    router.push("/for-you")
   }
 
   function closeModal()

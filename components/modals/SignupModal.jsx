@@ -59,12 +59,14 @@ export default function SignupModal() {
   }
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (!currentUser) return;
+    const unsubscribe = onAuthStateChanged(auth, (currUser) => {
+      if (!currUser) return;
       dispatch(
         setUser({
-          email: currentUser.email,
-          password: currentUser.password,
+          email: currUser.email,
+          password: currUser.password,
+          currentUser: true,
+          uid: currUser.uid
         })
       );
     });
