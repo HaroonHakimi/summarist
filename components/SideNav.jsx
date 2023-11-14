@@ -9,8 +9,9 @@ import { signOut } from "firebase/auth";
 import { signOutUser } from "@/redux/userSlice";
 import { auth } from "@/firebase";
 import { openLoginModal } from "@/redux/modalSlice";
+import Link from "next/link";
 
-export default function SideNav() {
+export default function SideNav({ padding, sidename, sidebarelement }) {
   const router = useRouter()
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
@@ -24,21 +25,24 @@ export default function SideNav() {
   }
 
   return (
-    <div className="hidden md:flex  w-[250px] h-full  flex-col justify-between bg-[#f7faf9] fixed transition-all delay-300 ">
+    <div className={` hidden md:flex   w-[250px] h-full  flex-col justify-between bg-[#f7faf9] fixed transition-all delay-300 ease-in ${padding}`}>
       <div className="flex flex-col justify-center items-start pt-4">
         <div className="px-4 pb-10">
           <img className="w-[160px] h-[40px]" src="/assets/logo.png" />
         </div>
         <div className="w-full">
+          <Link href={"/for-you"}>
           <NavList
             icon={<AiOutlineHome />}
             title={"For you"}
-            className={" bg-green-400"}
+            className={sidename}
           />
+          </Link>
 
           <NavList icon={<BsBookmark />} title={"My Library"} />
           <NavList icon={<LiaMarkerSolid />} title={"Highlights"} nodrop={"cursor-no-drop"}/>
           <NavList icon={<HiOutlineMagnifyingGlass />} title={"Search"} nodrop={"cursor-no-drop"} />
+          {sidebarelement}
         </div>
       </div>
       <div className="text-[#032b41] flex flex-col justify-between">

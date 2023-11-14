@@ -7,7 +7,7 @@ import SelectedBooks from "@/components/SelectedBooks";
 export default function ForYouPage() {
   return (
     <div className="flex ">
-      <SideNav />
+      <SideNav sidename={"bg-green-400"} />
       <div className="flex flex-col  w-full">
           <SearchBar />
         <SelectedBooks/>

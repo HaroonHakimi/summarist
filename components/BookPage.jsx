@@ -22,7 +22,7 @@ export default function BookPage() {
 
   function buttonDestination() {
     if (!user.currentUser) {
-      return dispatch(openLoginModal());
+      dispatch(openLoginModal());
     }
 
     if (bookData.subscriptionRequired && !user.subscribed) {
@@ -93,17 +93,19 @@ export default function BookPage() {
 
             <div className="space-y-6 mt-6">
               <div className="flex space-x-4">
-                <button 
-                onClick={buttonDestination}
-                className="flex justify-center items-center text-lg space-x-2 px-8 py-2 bg-[#032b41] text-[#fff] rounded-md  hover:opacity-80 ">
+                <button
+                  onClick={buttonDestination}
+                  className="flex justify-center items-center text-lg space-x-2 px-8 py-2 bg-[#032b41] text-[#fff] rounded-md  hover:opacity-80 "
+                >
                   <i>
                     <BsBook />
                   </i>
                   <span className="text-[18px] md-text-[16px]">Read</span>
                 </button>
-                <button 
-                onClick={buttonDestination}
-                className="flex justify-center items-center text-lg space-x-2 px-8 py-2 bg-[#032b41] text-[#fff] rounded-md text-[24px] hover:opacity-80 ">
+                <button
+                  onClick={buttonDestination}
+                  className="flex justify-center items-center text-lg space-x-2 px-8 py-2 bg-[#032b41] text-[#fff] rounded-md text-[24px] hover:opacity-80 "
+                >
                   <i>
                     <BiMicrophone />
                   </i>
@@ -111,32 +113,13 @@ export default function BookPage() {
                 </button>
               </div>
 
-              {user.currentUser ? (
-                <div
-                  onClick={addBookToLibrary}
-                  className="text-[#0365f2]  text-lg flex items-center space-x-2 hover:text-[black] cursor-pointer"
-                >
-                  {addBook ? (
-                    <>
-                      <FaBookmark />
-                      <h1>Saved to my Library</h1>
-                    </>
-                  ) : (
-                    <>
-                      <BsBookmark />
-                      <h1>Add Title to my Library</h1>
-                    </>
-                  )}
-                </div>
-              ) : (
-                <div
-                  onClick={() => dispatch(openLoginModal())}
-                  className="text-[#0365f2]  text-lg flex items-center space-x-2 hover:text-[black] cursor-pointer"
-                >
-                  <BsBookmark />
-                  <h1>Add Title to my Library</h1>
-                </div>
-              )}
+              <div
+                onClick={addBookToLibrary}
+                className="text-[#0365f2]  text-lg flex items-center space-x-2 hover:text-[black] cursor-pointer"
+              >
+                <BsBookmark />
+                <h1>Add Title to my Library</h1>
+              </div>
             </div>
 
             <div className="mt-8">
@@ -154,13 +137,13 @@ export default function BookPage() {
                     </div>
                   )}
                 </div>
-                <p className="text-[16px] md:text-[18px]">
+                <p className="text-[14px] md:text-[16px] ">
                   {bookData.bookDescription}
                 </p>
               </div>
               <div className="flex flex-col space-y-4">
                 <h1 className="text-lg font-bold">About the author</h1>
-                <p className="text-[16px] md:text-[18px]">
+                <p className="text-[14px] md:text-[16px] ">
                   {bookData.authorDescription}
                 </p>
               </div>
