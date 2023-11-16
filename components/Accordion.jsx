@@ -5,19 +5,23 @@ export default function Accordion({ title, description }) {
   const [chosenPoint, setChosenPoint] = useState(false);
 
   return (
-      <div className="flex flex-col">
-        <button
-          onClick={() => setChosenPoint(!chosenPoint)}
-          className="flex justify-between py-6 border border-[#bac8ce] text-[#032b41] transition-all duration-300 cursor-pointer"
-        >
-          <h1 className="text-[20px] font-bold">{title}</h1>
-          {
-            chosenPoint ? (<IoIosArrowDown/>) : (<IoIosArrowDown className="rotate-180"/>)
-          }
-          <div className="text-sm text-[#394547]">
-            {chosenPoint && (<p>{description}</p>)}
-          </div>
-        </button>
+    <div className="flex flex-col items-start border-b border-[#39454] w-full">
+      <div
+        onClick={() => setChosenPoint(!chosenPoint)}
+        className="flex justify-between items-center py-4 text-[#032b41]  cursor-pointer w-full transition-all 300ms ease"
+      >
+        <h1 className="text-[20px] md:text-2xl font-semibold">{title}</h1>
+        <div>
+        {chosenPoint ? (
+          <IoIosArrowDown />
+        ) : (
+          <IoIosArrowDown className="rotate-180" />
+        )}
+        </div>
       </div>
+      <div className="text-sm text-[#394547] pb-6">
+        {chosenPoint && <p className="md:text-[16px] text-[#394547]">{description}</p>}
+      </div>
+    </div>
   );
 }

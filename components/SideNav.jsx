@@ -17,11 +17,16 @@ export default function SideNav({ padding, sidename, sidebarelement }) {
   const dispatch = useDispatch()
   
 
-  async function logout()
+  async function logOut()
   {
     await signOut(auth)
     dispatch(signOutUser())
     dispatch(openLoginModal())
+
+    if (!user)
+    {
+      dispatch(openLoginModal())
+    }
   }
 
   return (
@@ -42,7 +47,7 @@ export default function SideNav({ padding, sidename, sidebarelement }) {
           <NavList icon={<BsBookmark />} title={"My Library"} />
           <NavList icon={<LiaMarkerSolid />} title={"Highlights"} nodrop={"cursor-no-drop"}/>
           <NavList icon={<HiOutlineMagnifyingGlass />} title={"Search"} nodrop={"cursor-no-drop"} />
-          {sidebarelement}
+          {/* {sidebarelement} */}
         </div>
       </div>
       <div className="text-[#032b41] flex flex-col justify-between">
@@ -51,7 +56,7 @@ export default function SideNav({ padding, sidename, sidebarelement }) {
             <NavList icon={<AiOutlineSetting />} title={"Settings"} />
             <NavList icon={<AiOutlineQuestionCircle />} title={"Help & Support"} nodrop={"cursor-no-drop"} />
 
-            <div onClick={logout}>
+            <div onClick={logOut}>
               {
                 user ? (
                   <NavList icon={<RxExit />} title={"Logout"} />
