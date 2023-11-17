@@ -6,6 +6,7 @@ const initialState = {
   subscribed: null,
   currentUser: null,
   uid: null,
+  premium: ""
 };
 
 const userSlice = createSlice({
@@ -20,10 +21,22 @@ const userSlice = createSlice({
     {
         state.email = null,
         state.password = null
+    },
+    monthlySub: (state) => 
+    {
+      state.premium = "Premium"
+    },
+    yearlySub: (state) => 
+    {
+      state.premium = "Premium Yearly"
+    },
+    setPremiumStatus: (state) => 
+    {
+      state.premium = action.payload
     }
   },
 });
 
-export const { setUser, signOutUser } = userSlice.actions;
+export const { setUser, signOutUser, monthlySub, yearlySub, setPremiumStatus } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -7,15 +7,16 @@ import Accordion from "@/components/Accordion";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openLoginModal } from "@/redux/modalSlice";
-import { getCheckoutUrl } from "@/stripe/stripePayment";
-import { initFirebase } from "@/firebase";
+
 import { useRouter } from "next/router";
+
+import { createMonthlyCheckout } from "@/stripe/createMonthlyCheckout";
+import { createYearlyCheckout } from "@/stripe/createYearlyCheckout";
+
 
 export default function ChoosePlan() {
   const [activeYearly, setActiveYearly] = useState(false);
   const [activeMonthly, setActiveMonthly] = useState(false);
-
-  const app = initFirebase();
 
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -37,15 +38,11 @@ export default function ChoosePlan() {
     }
 
     if (activeMonthly) {
-      const monthlyId = "price_1OD8z2DueGWaYjB3WRYWFsBk";
-      const checkoutUrl = await getCheckoutUrl(app, monthlyId);
-      router.push(checkoutUrl);
+      createMonthlyCheckout(user.uid)
     }
 
     if (activeYearly) {
-      const yearlyId = "price_1OD8z2DueGWaYjB3kVXYOJ9V";
-      const checkoutUrl = await getCheckoutUrl(app, yearlyId);
-      router.push(checkoutUrl);
+      createYearlyCheckout(user.uid)
     }
   }
 
