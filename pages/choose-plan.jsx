@@ -211,8 +211,7 @@ export default function ChoosePlan() {
                   {activeMonthly
                     ? "30 day money back, no questions asked"
                     : "Cancel your trial at any time before it ends, and you wont be charged"}
-                  Cancel your trial anytime before it ends, and you wont be
-                  charged
+                  
                 </span>
               </div>
             </div>

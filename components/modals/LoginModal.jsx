@@ -10,10 +10,12 @@ import { GrClose } from "react-icons/gr";
 import { useState } from "react";
 import SignupModal from "./SignupModal";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/firebase";
+import { auth, db } from "@/firebase";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { setUser } from "@/redux/userSlice";
+import { error } from "jquery";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function LoginModal() {
   const dispatch = useDispatch();
@@ -31,24 +33,26 @@ export default function LoginModal() {
     dispatch(setUser());
   }
 
-  async function handleLogin() {
+  async function handleLogin(e) {
+    e.preventDefault();
     setLoginLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-
-      const user = userCredentials.user;
+      console.log(email, password);
+      const user = auth.currentUser;
       if (user) {
         await setDoc(doc(db, "users", user.uid), {
           email: user.email,
           uid: user.uid,
         });
       }
-
+      console.log(error.code, error.message)
       dispatch(closeLoginModal());
       setLoginError(false);
       setLoginLoading(false);
       router.push("/for-you");
     } catch (error) {
+      console.log(error.code, error.message)
       setLoginError(true);
       setLoginLoading(false);
     }
