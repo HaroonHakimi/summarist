@@ -53,7 +53,10 @@ export default function SideNav({ padding, sidename, sidebarelement }) {
       <div className="text-[#032b41] flex flex-col justify-between">
         <div className="text-[#032b41] mt-12 ">
           <div>
+            <Link href={"/settings"}>
             <NavList icon={<AiOutlineSetting />} title={"Settings"} />
+            </Link>
+
             <NavList icon={<AiOutlineQuestionCircle />} title={"Help & Support"} nodrop={"cursor-no-drop"} />
 
             <div onClick={logOut}>

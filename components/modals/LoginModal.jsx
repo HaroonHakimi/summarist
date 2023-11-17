@@ -18,20 +18,18 @@ import { setUser } from "@/redux/userSlice";
 export default function LoginModal() {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.modals.loginModalOpen);
-  const router = useRouter()
+  const router = useRouter();
 
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
 
   function signUp() {
-    dispatch(closeLoginModal())
-    dispatch(openSignupModal())
-    dispatch(setUser())
+    dispatch(closeLoginModal());
+    dispatch(openSignupModal());
+    dispatch(setUser());
   }
-
-  
 
   async function handleLogin() {
     setLoginLoading(true);
@@ -45,11 +43,11 @@ export default function LoginModal() {
           uid: user.uid,
         });
       }
-      
+
       dispatch(closeLoginModal());
       setLoginError(false);
       setLoginLoading(false);
-      router.push("/for-you")
+      router.push("/for-you");
     } catch (error) {
       setLoginError(true);
       setLoginLoading(false);
@@ -63,15 +61,14 @@ export default function LoginModal() {
       "guest1234567891705@gmail.com",
       "123456"
     );
-    router.push("/for-you")
+    router.push("/for-you");
     setLoginLoading(false);
     dispatch(closeLoginModal());
   }
 
-  function closeModal()
-  {
-    dispatch(closeLoginModal())
-    setLoginError(false)
+  function closeModal() {
+    dispatch(closeLoginModal());
+    setLoginError(false);
   }
 
   return (
@@ -131,10 +128,7 @@ export default function LoginModal() {
             </button>
 
             <div className=" absolute bottom-0 w-full bg-[#f1f6f4] flex justify-center items-center p-2 hover:bg-[#E1E9E8]">
-              <button
-                onClick={signUp}
-                className=" text-[#116be9]"
-              >
+              <button onClick={signUp} className=" text-[#116be9]">
                 Don't have an Account?
               </button>
             </div>
