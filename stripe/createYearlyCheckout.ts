@@ -6,11 +6,11 @@ export async function createYearlyCheckout(uid: string) {
   const firestore = getFirestore();
   // Create a new checkout session in the subollection inside this users document
   const checkoutSessionRef = await addDoc(
-    collection(firestore, "users", uid, "checkout_sessions"),
+    collection(doc(firestore, "users", uid), "checkout_sessions"),
     {
       price: "price_1ODFOLDueGWaYjB3EocZGxoh",
-      success_url: window.location.origin + "/success",
-      cancel_url: window.location.origin + "/settings",
+      success_url: window.location.origin + "/settings",
+      cancel_url: window.location.origin + "/for-you",
     }
   );
 

@@ -48,6 +48,15 @@ export default function SignupModal() {
         email,
         password
       );
+
+      setDoc(doc(db, 'users', userCredentials.user.uid), {
+        uid: userCredentials.user.uid,
+        email: userCredentials.user.email,
+        name: userCredentials.user.displayName,
+        provider: userCredentials.user.providerData[0].providerId,
+        photoUrl: userCredentials.user.photoURL,
+      });
+
       dispatch(closeSignupModal());
       setSignUpError(false)
       pushToForYouPage()

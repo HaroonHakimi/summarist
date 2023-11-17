@@ -54,9 +54,9 @@ export default function LoginModal() {
       "guest1234567891705@gmail.com",
       "123456"
     );
+    router.push("/for-you")
     setLoginLoading(false);
     dispatch(closeLoginModal());
-    router.push("/for-you")
   }
 
   function closeModal()
