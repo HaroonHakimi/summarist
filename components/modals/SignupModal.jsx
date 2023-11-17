@@ -12,9 +12,10 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
-import { auth } from "@/firebase";
+import { auth, db } from "@/firebase";
 import { setUser } from "@/redux/userSlice";
 import LoginModal from "./LoginModal";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function SignupModal() {
   const dispatch = useDispatch();
@@ -49,13 +50,13 @@ export default function SignupModal() {
         password
       );
 
-      setDoc(doc(db, 'users', userCredentials.user.uid), {
-        uid: userCredentials.user.uid,
-        email: userCredentials.user.email,
-        name: userCredentials.user.displayName,
-        provider: userCredentials.user.providerData[0].providerId,
-        photoUrl: userCredentials.user.photoURL,
-      });
+      const user = userCredentials.user;
+      if (user) {
+        await setDoc(doc(db, "users", user.uid), {
+          email: user.email,
+          uid: user.uid,
+        });
+      }
 
       dispatch(closeSignupModal());
       setSignUpError(false)
@@ -68,14 +69,13 @@ export default function SignupModal() {
   }
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currUser) => {
-      if (!currUser) return;
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (!currentUser) return;
+      //handle redux actions
       dispatch(
         setUser({
-          email: currUser.email,
-          password: currUser.password,
-          currentUser: true,
-          uid: currUser.uid
+          email: currentUser.email,
+          password: currentUser.password
         })
       );
     });

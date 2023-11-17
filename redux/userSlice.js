@@ -14,8 +14,9 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      (state.email = action.payload.email),
-        (state.password = action.payload.password);
+      (state.email = action.payload),
+        (state.password = action.payload);
+        state.currentUser = action.payload
     },
     signOutUser: (state) => 
     {

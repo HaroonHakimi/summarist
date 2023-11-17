@@ -21,6 +21,9 @@ export async function createMonthlyCheckout(uid: string) {
 
   // Wait for the CheckoutSession to get attached by the extension
   onSnapshot(checkoutSessionRef, (snap) => {
+    // doc(firestore, "users", uid, "checkout__sessions", checkoutSessionRef.id)
+    // async (snap:any) =>
+    // {
     const { sessionId } = snap.data();
     if (sessionId) {
       // We have a session, let's redirect to Checkout
@@ -29,5 +32,6 @@ export async function createMonthlyCheckout(uid: string) {
         stripe.redirectToCheckout({ sessionId });
       });
     }
+  // }
   });;
 }

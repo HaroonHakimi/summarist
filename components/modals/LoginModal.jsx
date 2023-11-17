@@ -37,6 +37,15 @@ export default function LoginModal() {
     setLoginLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
+
+      const user = userCredentials.user;
+      if (user) {
+        await setDoc(doc(db, "users", user.uid), {
+          email: user.email,
+          uid: user.uid,
+        });
+      }
+      
       dispatch(closeLoginModal());
       setLoginError(false);
       setLoginLoading(false);
