@@ -17,7 +17,7 @@ export async function createMonthlyCheckout(uid: string) {
   const checkoutSessionRef = await addDoc(
     collection(doc(firestore, "users", uid), "checkout_sessions"),
     {
-      price: "price_1ODELIDueGWaYjB3DCkfzQls",
+      price: "price_1ODfHmDueGWaYjB35b45Vl1B",
       success_url: window.location.origin + "/settings",
       cancel_url: window.location.origin + "/for-you",
     }
