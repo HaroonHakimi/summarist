@@ -7,9 +7,9 @@ import { Modal } from "@mui/material";
 import { BsFillPersonFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { GrClose } from "react-icons/gr";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SignupModal from "./SignupModal";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "@/firebase";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useRouter } from "next/navigation";
@@ -38,7 +38,7 @@ export default function LoginModal() {
     setLoginLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      console.log(email, password);
+      // console.log(email, password);
       const user = auth.currentUser;
       if (user) {
         await setDoc(doc(db, "users", user.uid), {
@@ -59,21 +59,53 @@ export default function LoginModal() {
   }
 
   async function guestSignIn() {
+    e.preventDefault();
     setLoginLoading(true);
+    try {
+
     await signInWithEmailAndPassword(
       auth,
       "guest1234567891705@gmail.com",
       "123456"
     );
+
+    const user = auth.currentUser;
+    if (user) {
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        uid: user.uid,
+      });
+    }
+
     router.push("/for-you");
     setLoginLoading(false);
     dispatch(closeLoginModal());
+    } catch {
+      console.log(error.code, error.message)
+      setLoginError(true);
+      setLoginLoading(false);
+    }
   }
 
   function closeModal() {
     dispatch(closeLoginModal());
     setLoginError(false);
   }
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currUser) => {
+      if (!currUser) return;
+      //handle redux actions
+      dispatch(
+        setUser({
+          email: currUser.email,
+          password: currUser.password,
+        })
+      );
+    });
+
+    return unsubscribe;
+  }, []);
 
   return (
     <>
