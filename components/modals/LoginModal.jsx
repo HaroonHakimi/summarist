@@ -46,13 +46,13 @@ export default function LoginModal() {
           uid: user.uid,
         });
       }
-      console.log(error.code, error.message)
+      // console.log(error.code, error.message)
       dispatch(closeLoginModal());
       setLoginError(false);
       setLoginLoading(false);
       router.push("/for-you");
     } catch (error) {
-      console.log(error.code, error.message)
+      // console.log(error.code, error.message)
       setLoginError(true);
       setLoginLoading(false);
     }
@@ -81,7 +81,7 @@ export default function LoginModal() {
     setLoginLoading(false);
     dispatch(closeLoginModal());
     } catch {
-      console.log(error.code, error.message)
+      // console.log(error.code, error.message)
       setLoginError(true);
       setLoginLoading(false);
     }
@@ -99,7 +99,7 @@ export default function LoginModal() {
       dispatch(
         setUser({
           email: currUser.email,
-          password: currUser.password,
+          uid: currUser.uid
         })
       );
     });

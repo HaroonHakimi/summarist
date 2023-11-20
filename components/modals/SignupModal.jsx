@@ -16,10 +16,12 @@ import { auth, db } from "@/firebase";
 import { setUser } from "@/redux/userSlice";
 import LoginModal from "./LoginModal";
 import { doc, setDoc } from "firebase/firestore";
+import { useRouter } from "next/router";
 
 export default function SignupModal() {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.modals.signupModalOpen);
+  const router = useRouter()
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
