@@ -4,7 +4,7 @@ import { RiPlantFill } from "react-icons/ri";
 import { FaHandshake } from "react-icons/fa";
 
 import Accordion from "@/components/Accordion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openLoginModal } from "@/redux/modalSlice";
 
@@ -12,13 +12,16 @@ import { useRouter } from "next/router";
 
 import { createMonthlyCheckout } from "@/stripe/createMonthlyCheckout";
 import { createYearlyCheckout } from "@/stripe/createYearlyCheckout";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/firebase";
+import { setUser } from "@/redux/userSlice";
 
 
 export default function ChoosePlan() {
   const [activeYearly, setActiveYearly] = useState(false);
   const [activeMonthly, setActiveMonthly] = useState(false);
 
-  const user = useSelector((state) => state.user);
+  const user = auth.currentUser;
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -33,7 +36,7 @@ export default function ChoosePlan() {
   }
 
   async function purchasePlan() {
-    if (!user.currentUser) {
+    if (!user) {
       dispatch(openLoginModal());
     }
 
@@ -68,6 +71,9 @@ export default function ChoosePlan() {
         "You will not be charged if you cancel your trial before its conclusion. While you will not have complete access to the entire Summarist library, you can still expand your knowledge with one curated book per day.",
     },
   ];
+
+
+
 
   return (
     <>

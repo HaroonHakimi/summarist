@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AiOutlineStar } from "react-icons/ai";
 import { CiClock2 } from "react-icons/ci";
+import Skeleton from "./skeleton/Skeleton";
 
 export default function RecommendedBooks({ title, subtitle }) {
   return (
@@ -19,12 +20,15 @@ export default function RecommendedBooks({ title, subtitle }) {
 
 export function RecommendedBook() {
   const [recommendedData, setRecommendedData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   async function fetchRecommendedData() {
+    setLoading(true);
     const { data } = await axios.get(
       `https://us-central1-summaristt.cloudfunctions.net/getBooks?status=recommended`
     );
     setRecommendedData(data);
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -33,37 +37,43 @@ export function RecommendedBook() {
 
   return (
     <div className="flex w-full overflow-x-auto snap-x snap-mandatory no-scrollbar space-x-3.5">
-      {recommendedData?.map((book) => (
-        <Link key={book.id} href={"/book/"+book.id} className="flex-shrink-0 snap-start">
-        <div
-          className="relative cursor-pointer   px-2 py-10 space-y-1 hover:bg-[#f0efef] flex flex-col items-start justify-start "
-        >
-          <figure className=" flex items-center">
-            <img src={book.imageLink} alt="" className="w-[172px]" />
-          </figure>
-          <div className="max-w-[172px] flex flex-col items-start justify-center space-y-1">
-            <h2 className="font-bold text-md leading-5">{book.title}</h2>
-            <h2 className="text-sm text-[#6b757b]">{book.author}</h2>
-            <h2 className="text-sm text-[#394547]">{book.subTitle}</h2>
-            <div className="text-[#6b757b] text-sm flex space-x-2 ">
-              <div className="flex items-center justify-center">
-                <CiClock2 />
-                <span>03:24</span>
+      {loading ? (
+        <Skeleton h={"230px"} w={"w-full"}/>
+      ) : (
+        recommendedData?.map((book) => (
+          <Link
+            key={book.id}
+            href={"/book/" + book.id}
+            className="flex-shrink-0 snap-start"
+          >
+            <div className="relative cursor-pointer   px-2 py-10 space-y-1 hover:bg-[#f0efef] flex flex-col items-start justify-start ">
+              <figure className=" flex items-center">
+                <img src={book.imageLink} alt="" className="w-[172px]" />
+              </figure>
+              <div className="max-w-[172px] flex flex-col items-start justify-center space-y-1">
+                <h2 className="font-bold text-md leading-5">{book.title}</h2>
+                <h2 className="text-sm text-[#6b757b]">{book.author}</h2>
+                <h2 className="text-sm text-[#394547]">{book.subTitle}</h2>
+                <div className="text-[#6b757b] text-sm flex space-x-2 ">
+                  <div className="flex items-center justify-center">
+                    <CiClock2 />
+                    <span>03:24</span>
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <AiOutlineStar />
+                    <span>{book.averageRating}</span>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center justify-center">
-                <AiOutlineStar />
-                <span>{book.averageRating}</span>
-              </div>
+              {book.subscriptionRequired && (
+                <div className="text-white text-[8px] rounded-2xl py-1 px-2 bg-[#032b41] absolute top-1 right-1">
+                  <span>Premium</span>
+                </div>
+              )}
             </div>
-          </div>
-          {book.subscriptionRequired && (
-            <div className="text-white text-[8px] rounded-2xl py-1 px-2 bg-[#032b41] absolute top-1 right-1">
-              <span>Premium</span>
-            </div>
-          )}
-        </div>
-        </Link>
-      ))}
+          </Link>
+        ))
+      )}
     </div>
   );
 }

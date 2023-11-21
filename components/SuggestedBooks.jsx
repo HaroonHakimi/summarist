@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AiOutlineStar } from "react-icons/ai";
 import { CiClock2 } from "react-icons/ci";
+import Skeleton from "./skeleton/Skeleton";
 
 export default function SuggestedBooks({ title, subtitle }) {
   return (
@@ -19,13 +20,16 @@ export default function SuggestedBooks({ title, subtitle }) {
 
 export function SuggestedBook() {
   const [suggestedData, setSuggestedData] = useState([]);
+  const [loading, setLoading] = useState(false)
   const router = useRouter();
 
   async function fetchSuggestedData() {
+    setLoading(true)
     const { data } = await axios.get(
       `https://us-central1-summaristt.cloudfunctions.net/getBooks?status=suggested`
     );
     setSuggestedData(data);
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -34,7 +38,11 @@ export function SuggestedBook() {
 
   return (
       <div className="flex overflow-x-auto snap-x snap-mandatory no-scrollbar space-x-3.5">
-        {suggestedData?.map((book) => (
+        {loading ? (
+          <Skeleton h={"230px"} w={"w-full"}/>
+        ) :
+        
+        suggestedData?.map((book) => (
           <Link key={book.id} href={"/book/"+book.id} className="flex-shrink-0 snap-start">
           <div
             className="relative cursor-pointer px-2 py-10 space-y-1 hover:bg-[#f0efef] flex flex-col items-start justify-start"

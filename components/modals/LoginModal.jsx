@@ -26,6 +26,7 @@ export default function LoginModal() {
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
+  const [guestLoading, setGuestLoading] = useState(false)
 
   function signUp() {
     dispatch(closeLoginModal());
@@ -47,10 +48,10 @@ export default function LoginModal() {
         });
       }
       // console.log(error.code, error.message)
+      router.push("/for-you");
       dispatch(closeLoginModal());
       setLoginError(false);
       setLoginLoading(false);
-      router.push("/for-you");
     } catch (error) {
       // console.log(error.code, error.message)
       setLoginError(true);
@@ -60,7 +61,7 @@ export default function LoginModal() {
 
   async function guestSignIn() {
     e.preventDefault();
-    setLoginLoading(true);
+    setGuestLoading(true);
     try {
 
     await signInWithEmailAndPassword(
@@ -78,7 +79,7 @@ export default function LoginModal() {
     }
 
     router.push("/for-you");
-    setLoginLoading(false);
+    setGuestLoading(false);
     dispatch(closeLoginModal());
     } catch {
       // console.log(error.code, error.message)
@@ -95,7 +96,6 @@ export default function LoginModal() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currUser) => {
       if (!currUser) return;
-      //handle redux actions
       dispatch(
         setUser({
           email: currUser.email,
@@ -130,12 +130,12 @@ export default function LoginModal() {
                   <AiOutlineLoading3Quarters className="spin__animation text-white" />
                 </>
               ) : (
-                <>
+                <div className={`${guestLoading && "cursor-not-allowed"}`}>
                   <BsFillPersonFill className="absolute left-2 text-2xl" />
-                  <div onClick={guestSignIn} className="text-[16px]">
+                  <div onClick={guestSignIn} className={`text-[16px]`}>
                     Login as a Guest
                   </div>
-                </>
+                </div>
               )}
             </button>
             <h3 className="text-sm loginModal__sub--title my-4">or</h3>
@@ -144,16 +144,16 @@ export default function LoginModal() {
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
-                className="border border-[#bac8ce] w-full  text-[#39454] text-sm p-2 rounded-md mb-4 focus:outline-[#2BD97C]"
+                className="border border-[#bac8ce] w-full  text-[#394547] text-sm p-2 rounded-md mb-4 focus:outline-[#2BD97C]"
               />
               <input
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
-                className="border border-[#bac8ce] w-full  text-[#39454] text-sm p-2 rounded-md mb-4 focus:outline-[#2BD97C]"
+                className="border border-[#bac8ce] w-full  text-[#394547] text-sm p-2 rounded-md mb-4 focus:outline-[#2BD97C]"
               />
             </div>
-            <button onClick={handleLogin} className="btn home__cta--btn ">
+            <button onClick={handleLogin} className={`btn home__cta--btn${loginLoading && "cursor-not-allowed"}`}>
               {loginLoading ? (
                 <>
                   <AiOutlineLoading3Quarters className="spin__animation" />

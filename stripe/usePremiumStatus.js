@@ -11,6 +11,7 @@ export default function usePremiumStatus() {
   useEffect(() => {
     return onIdTokenChanged(auth, async (user) => {
       if (user) {
+        
         const tokenResult = await user.getIdTokenResult();
         dispatch(setPremiumStatus(tokenResult.claims.stripeRole === "premium"));
       } else {

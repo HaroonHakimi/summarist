@@ -18,7 +18,7 @@ const userSlice = createSlice({
         (state.uid = action.payload);
     },
     signOutUser: (state) => {
-      (state.email = null), (state.password = null);
+      (state.email = null), (state.password = null), (state.uid = null);
     },
     monthlySub: (state) => {
       state.plan = "Premium";

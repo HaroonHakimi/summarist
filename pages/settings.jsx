@@ -12,9 +12,10 @@ export default function Settings() {
   const router = useRouter();
 
   const user = useSelector((state) => state.user);
-  const userEmail = user?.email || "";
   const uid = user.uid;
   console.log(uid);
+
+  const isPremium = useSelector((state) => state.premium);
 
   function sendToChoosePlan() {
     if (user.plan === "basic") {
@@ -46,36 +47,38 @@ export default function Settings() {
         <div className=" pb-3">
           <h1 className="text-2xl md:text-[32px] font-bold">Settings</h1>
         </div>
-        {
-          user ? (
-            <>
+        {user ? (
+          <>
             <div className="py-6 border-y border[#e1e7ea] space-y-1">
-          <h1 className="font-bold text-lg">Your Subscription Plan</h1>
-          <h2>Basic</h2>
-          <button onClick={sendToChoosePlan} className="btn max-w-[180px]">
-            Upgrade to Premium
-          </button>
-        </div>
-        <div className="pt-6">
-          <h1 className="font-bold text-lg">Email</h1>
-          <h1></h1>
-        </div>
-            </>
-          ) : (
-            <div className="flex justify-center items-center flex-col space-y-2">
+              <h1 className="font-bold text-lg">Your Subscription Plan</h1>
+              {isPremium ? <h2>Premium</h2> : <h2>Basic</h2>}
+              {!isPremium && (
+                <button
+                  onClick={sendToChoosePlan}
+                  className="btn max-w-[180px]"
+                >
+                  Upgrade to Premium
+                </button>
+              )}
+            </div>
+            <div className="pt-6">
+              <h1 className="font-bold text-lg">Email</h1>
+              <h1>{uid.email}</h1>
+            </div>
+          </>
+        ) : (
+          <div className="flex justify-center items-center flex-col space-y-2">
             <figure>
-              <img 
-              className="w-[460px]"
-              src="/assets/logo.png"/>
+              <img className="w-[460px]" src="/assets/logo.png" />
             </figure>
             <div className="space-y-2 flex justify-center">
-              <h1 className="text-[24px] font-bold">Log in to see your account details</h1>
+              <h1 className="text-[24px] font-bold">
+                Log in to see your account details
+              </h1>
               <button button>Login</button>
             </div>
-            </div>
-          )
-        }
-        
+          </div>
+        )}
       </div>
     </>
   );

@@ -10,10 +10,12 @@ import { HiOutlineLightBulb } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
 import LoginModal from "./modals/LoginModal";
 import { FaBookmark } from "react-icons/fa";
+import { Skeleton } from "@mui/material";
 
 export default function BookPage() {
   const [bookData, setBookData] = useState([]);
   const [addBook, setAddBook] = useState(false);
+  const [loading, setLoading] = useState(false)
   const router = useRouter();
   const { id } = router.query;
 
@@ -39,10 +41,12 @@ export default function BookPage() {
   }
 
   async function fetchData() {
+    setLoading(true)
     const { data } = await axios.get(
       `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`
     );
     setBookData(data);
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -52,7 +56,7 @@ export default function BookPage() {
   return (
     <div className="py-8 px-6 md:pl-72 2xl:pl-96 2xl:pr-32">
       {
-        <div className="lg:flex-row flex-col-reverse flex text-[#032b41]">
+         <div className="lg:flex-row flex-col-reverse flex text-[#032b41]">
           <div>
             <div className="flex flex-col justify-start space-y-3 border-b border-[#e1e7ea] pb-4">
               <div className="flex space-x-3">
@@ -156,7 +160,7 @@ export default function BookPage() {
             </figure>
           </div>
         </div>
-      }
+                  }
     </div>
   );
 }

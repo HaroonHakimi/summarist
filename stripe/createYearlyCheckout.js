@@ -7,7 +7,7 @@ import {
 } from "firebase/firestore";
 import initializeStripe from "./initializeStripe";
 
-export async function createMonthlyCheckout(uid) {
+export async function createYearlyCheckout(uid) {
   let checkoutSessionRef;
 
   try {

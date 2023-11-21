@@ -102,13 +102,13 @@ export default function SignupModal() {
                   type="email"
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email"
-                  className="border border-[#bac8ce] w-full  text-[#39454] text-sm p-2 rounded-md mb-4 focus:outline-[#2BD97C]"
+                  className="border border-[#bac8ce] w-full  text-[#394547] text-sm p-2 rounded-md mb-4 focus:outline-[#2BD97C]"
                 />
                 <input
                   type="password"
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
-                  className="border border-[#bac8ce] w-full  text-[#39454] text-sm p-2 rounded-md mb-4 focus:outline-[#2BD97C]"
+                  className="border border-[#bac8ce] w-full  text-[#394547] text-sm p-2 rounded-md mb-4 focus:outline-[#2BD97C]"
                 />
               </div>
               <button className="btn home__cta--btn " onClick={createUser}>
