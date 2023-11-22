@@ -4,7 +4,8 @@ import SuggestedBooks from "./SuggestedBooks";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
-import Skeleton from "./skeleton/Skeleton";
+import Skeleton from "./skeleton/BookSkeleton";
+import BookSkeleton from "./skeleton/BookSkeleton";
 
 export default function SelectedBooks() {
   const [selectedData, setSelectedData] = useState([]);
@@ -26,7 +27,7 @@ export default function SelectedBooks() {
   return (
     <div className="py-8 md:pl-72 lg:pl-72  px-6 2xl:pl-96 2xl:pr-32">
       { loading ? (
-        <Skeleton h={"230px"} w={"620px"} rw={"860px"}/>
+        <BookSkeleton h={"230px"} w={"620px"} rw={"860px"}/>
       ) :
         selectedData?.map((book) => (
           <Link key={book.id} href={"/book/" + book.id}>

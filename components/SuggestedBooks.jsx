@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AiOutlineStar } from "react-icons/ai";
 import { CiClock2 } from "react-icons/ci";
-import Skeleton from "./skeleton/Skeleton";
+import BookSkeleton from "./skeleton/BookSkeleton";
 
 export default function SuggestedBooks({ title, subtitle }) {
   return (
@@ -39,7 +39,7 @@ export function SuggestedBook() {
   return (
       <div className="flex overflow-x-auto snap-x snap-mandatory no-scrollbar space-x-3.5">
         {loading ? (
-          <Skeleton h={"230px"} w={"w-full"}/>
+          <BookSkeleton h={"230px"} w={"w-full"}/>
         ) :
         
         suggestedData?.map((book) => (

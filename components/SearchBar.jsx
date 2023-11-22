@@ -56,9 +56,11 @@ export default function SearchBar() {
     setCloseMark(false);
   }
 
+  
+
   return (
     <div className="px-4">
-      <div className="px-10 py-6 border-b border-[#e1e7ea] flex justify-end ">
+      <div className="px-10 py-6 border-b border-[#e1e7ea] flex justify-end relative">
         <div className="flex justify-between w-[340px] items-center">
           <div className="flex justify-end items-center">
             <input
@@ -87,7 +89,7 @@ export default function SearchBar() {
           />
           <Modal open={isOpen} onClose={() => dispatch(closeSideBarModal())}>
             <div className="absolute left-0">
-              <SideNav />
+              {isOpen && <SideNav display={"flex"}/>}
             </div>
           </Modal>
         </div>

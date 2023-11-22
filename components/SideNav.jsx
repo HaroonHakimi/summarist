@@ -15,12 +15,10 @@ import { auth } from "@/firebase";
 import { openLoginModal } from "@/redux/modalSlice";
 import Link from "next/link";
 
-export default function SideNav({ padding, sidename, sidebarelement }) {
+export default function SideNav({ padding, sideColor, display }) {
   const router = useRouter();
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
-  const isOpen = useSelector((state) => state.modals.openSideBar);
 
   async function logOut() {
     await signOut(auth);
@@ -37,7 +35,7 @@ export default function SideNav({ padding, sidename, sidebarelement }) {
   return (
     <>
       <div
-        className={` hidden md:flex   w-[250px] h-full  flex-col justify-between bg-[#f7faf9] fixed transition-all delay-300 ease-in ${padding}`}
+        className={`${display} z-10 hidden md:flex   w-[250px] h-full  flex-col justify-between bg-[#f7faf9] fixed transition-all delay-300 ease-in ${padding}`}
       >
         <div className="flex flex-col justify-center items-start pt-4">
           <div className="px-4 pb-10">
@@ -48,7 +46,7 @@ export default function SideNav({ padding, sidename, sidebarelement }) {
               <NavList
                 icon={<AiOutlineHome />}
                 title={"For you"}
-                className={sidename}
+                className={sideColor}
               />
             </Link>
 

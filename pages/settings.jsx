@@ -13,9 +13,9 @@ export default function Settings() {
 
   const user = useSelector((state) => state.user);
   const uid = user.uid;
-  console.log(uid);
+  const isPremium = useSelector((state) => state.user.premium);
 
-  const isPremium = useSelector((state) => state.premium);
+  console.log(isPremium)
 
   function sendToChoosePlan() {
     if (user.plan === "basic") {
@@ -26,7 +26,6 @@ export default function Settings() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currUser) => {
       if (!currUser) return;
-      //handle redux actions
       dispatch(
         setUser({
           email: currUser.email,
@@ -63,7 +62,7 @@ export default function Settings() {
             </div>
             <div className="pt-6">
               <h1 className="font-bold text-lg">Email</h1>
-              <h1>{uid.email}</h1>
+              <h1></h1>
             </div>
           </>
         ) : (
