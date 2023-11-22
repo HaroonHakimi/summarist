@@ -35,18 +35,19 @@ export default function SelectedBooks() {
                 <h1 className="font-bold text-2xl">Selected just for you</h1>
               </div>
 
-              <div className="md:flex-row flex-col-reverse flex w-full lg:w-[90%] bg-[#fbefd6] rounded-md p-5 space-y-6 cursor-pointer">
-                <div className="w-[300px] pr-10 flex items-center md:border-r md:border-[#bac8ce]">
-                  <h2 className="text-[16px] md:text-md w-full ">
+              <div className="md:flex-row flex-col flex items-start md:justify-start w-full lg:w-[70%] bg-[#fbefd6] rounded-md p-5 space-y-6 cursor-pointer">
+                <div className="md:w-[300px] w-full md:pr-10 flex items-center ">
+                  <h2 className="md:text-[16px] text-sm md:text-md w-full flex  ">
                     
                     {book.subTitle}
                   </h2>
                 </div>
-                {/* <div className="hidden md:flex content-none w-[1px] h-[140px] bg-[#bac8ce] mr-2"></div> */}
+                <span className="hidden md:flex w-[1px] h-[140px] mr-2 bg-[#bac8ce] "></span>
 
-                <div className="flex w-full justify-center">
+                <div className="flex w-full md:justify-center">
                   <figure className="max-w-[140px] flex  justify-center items-start">
-                    <img src={book.imageLink} alt="" />
+                    <img 
+                    src={book.imageLink} alt="" />
                   </figure>
                   <div className="ml-6">
                     <h1 className="font-bold mb-1">{book.title}</h1>
