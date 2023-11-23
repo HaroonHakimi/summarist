@@ -4,8 +4,7 @@ import SuggestedBooks from "./SuggestedBooks";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
-import Skeleton from "./skeleton/BookSkeleton";
-import BookSkeleton from "./skeleton/BookSkeleton";
+import SelectedBookSkeleton from "./skeleton/SelectedBookSkeleton";
 
 export default function SelectedBooks() {
   const [selectedData, setSelectedData] = useState([]);
@@ -26,20 +25,19 @@ export default function SelectedBooks() {
 
   return (
     <div className="py-8 md:pl-72 lg:pl-72  px-6 2xl:pl-96 2xl:pr-32">
-      { loading ? (
-        <BookSkeleton h={"230px"} w={"620px"} rw={"860px"}/>
-      ) :
-        selectedData?.map((book) => (
-          <Link key={book.id} href={"/book/" + book.id}>
-            <div>
-              <div className="mb-4">
-                <h1 className="font-bold text-2xl">Selected just for you</h1>
-              </div>
+      <div>
+        <div className="mb-4">
+          <h1 className="font-bold text-2xl">Selected just for you</h1>
+        </div>
 
+        {loading ? (
+          <SelectedBookSkeleton/>
+        ) : (
+          selectedData?.map((book) => (
+            <Link key={book.id} href={"/book/" + book.id}>
               <div className="md:flex-row flex-col flex items-start md:justify-start w-full lg:w-[70%] bg-[#fbefd6] rounded-md p-5 space-y-6 cursor-pointer">
                 <div className="md:w-[300px] w-full md:pr-10 flex items-center ">
                   <h2 className="md:text-[16px] text-sm md:text-md w-full flex  ">
-                    
                     {book.subTitle}
                   </h2>
                 </div>
@@ -47,8 +45,7 @@ export default function SelectedBooks() {
 
                 <div className="flex w-full md:justify-center">
                   <figure className="max-w-[140px] flex  justify-center items-start">
-                    <img 
-                    src={book.imageLink} alt="" />
+                    <img src={book.imageLink} alt="" />
                   </figure>
                   <div className="ml-6">
                     <h1 className="font-bold mb-1">{book.title}</h1>
@@ -62,10 +59,10 @@ export default function SelectedBooks() {
                   </div>
                 </div>
               </div>
-            </div>
-          </Link>
-        ))
-        }
+            </Link>
+          ))
+        )}
+      </div>
 
       <RecommendedBooks
         title={"Recommended For You"}

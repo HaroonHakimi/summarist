@@ -39,7 +39,9 @@ export function SuggestedBook() {
   return (
       <div className="flex overflow-x-auto snap-x snap-mandatory no-scrollbar space-x-3.5">
         {loading ? (
-          <BookSkeleton h={"230px"} w={"w-full"}/>
+          new Array(5).fill(0).map((_, index) => (
+            <BookSkeleton/>
+          ))
         ) :
         
         suggestedData?.map((book) => (

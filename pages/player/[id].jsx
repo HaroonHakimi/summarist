@@ -22,35 +22,35 @@ export default function Player() {
   const router = useRouter();
   const { id } = router.query;
 
-  // const [small, setSmall] = useState(false);
-  // const [medium, setMedium] = useState(false);
-  // const [large, setLarge] = useState(false);
-  // const [extraLarge, setExtraLarge] = useState(false);
+  const [small, setSmall] = useState(false);
+  const [medium, setMedium] = useState(false);
+  const [large, setLarge] = useState(false);
+  const [extraLarge, setExtraLarge] = useState(false);
 
-  // function changeTextToSmall() {
-  //   setSmall(true);
-  //   setMedium(false);
-  //   setLarge(false);
-  //   setExtraLarge(false);
-  // }
-  // function changeTextToMedium() {
-  //   setSmall(false);
-  //   setMedium(true);
-  //   setLarge(false);
-  //   setExtraLarge(false);
-  // }
-  // function changeTextToLarge() {
-  //   setSmall(false);
-  //   setMedium(false);
-  //   setLarge(true);
-  //   setExtraLarge(false);
-  // }
-  // function changeTextToExtraLarge() {
-  //   setSmall(false);
-  //   setMedium(false);
-  //   setLarge(false);
-  //   setExtraLarge(true);
-  // }
+  function changeTextToSmall() {
+    setSmall(true);
+    setMedium(false);
+    setLarge(false);
+    setExtraLarge(false);
+  }
+  function changeTextToMedium() {
+    setSmall(false);
+    setMedium(true);
+    setLarge(false);
+    setExtraLarge(false);
+  }
+  function changeTextToLarge() {
+    setSmall(false);
+    setMedium(false);
+    setLarge(true);
+    setExtraLarge(false);
+  }
+  function changeTextToExtraLarge() {
+    setSmall(false);
+    setMedium(false);
+    setLarge(false);
+    setExtraLarge(true);
+  }
 
   // function text()
   // {
@@ -94,15 +94,15 @@ export default function Player() {
             <h1 className="text-2xl font-bold">{books.title}</h1>
           </div>
 
-          <div className={`whitespace-pre-line pt-8`}>
+          <div className={`whitespace-pre-line pt-8 ${small && "text-md"} ${medium && "text-lg"} ${large && "text-xl"} ${extraLarge && "text-2xl"}`}>
             <p>{books.summary}</p>
           </div>
         </div>
       </div>
 
       <div className="fixed bottom-0  bg-[#142330] w-full h-[100px] z-10">
-        <div className="flex py-4 px-10 justify-between text-white">
-          <div className="flex">
+        <div className="flex flex-col md:flex-row py-4 px-10 justify-between text-white">
+          <div className="flex flex-col md:flex-row">
             <div className="flex flex-col text-sm">
               <h1>{books.title}</h1>
               <span className="text-[#BAC8CE]">{books.author}</span>
@@ -112,29 +112,29 @@ export default function Player() {
           <AudioPlayer data={books} />
         </div>
       </div>
-      <div className=" pl-2 fixed top-[39%]">
+      <div className="pl-2 fixed right-0 z-20">
         <div className={`flex items-center py-5 `}>
-          <div className=" relative flex items-center">
+          <div className=" flex items-center">
             <i
-              // onClick={changeTextToSmall}
+              onClick={changeTextToSmall}
               className="text-md mx-4 cursor-pointer"
             >
               <FaFont />
             </i>
             <i
-              // onClick={changeTextToMedium}
+              onClick={changeTextToMedium}
               className="text-lg mx-4 cursor-pointer"
             >
               <FaFont />
             </i>
             <i
-              // onClick={changeTextToLarge}
+              onClick={changeTextToLarge}
               className="text-xl mx-4 cursor-pointer"
             >
               <FaFont />
             </i>
             <i
-              // onClick={changeTextToExtraLarge}
+              onClick={changeTextToExtraLarge}
               className="text-2xl mx-4 cursor-pointer"
             >
               <FaFont />
@@ -145,3 +145,6 @@ export default function Player() {
     </div>
   );
 }
+
+
+// top-[39%]

@@ -89,7 +89,7 @@ export default function SearchBar() {
           />
           <Modal open={isOpen} onClose={() => dispatch(closeSideBarModal())}>
             <div className="absolute left-0">
-              {isOpen && <SideNav display={"flex"}/>}
+              {isOpen && <SideNav display={"flex"} isOpen={isOpen}/>}
             </div>
           </Modal>
         </div>

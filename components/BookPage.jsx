@@ -8,9 +8,8 @@ import { BiMicrophone } from "react-icons/bi";
 import { BsBook, BsBookmark } from "react-icons/bs";
 import { HiOutlineLightBulb } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
-import LoginModal from "./modals/LoginModal";
-import { FaBookmark } from "react-icons/fa";
-import { Skeleton } from "@mui/material";
+import InnerBookSkeleton from "./skeleton/InnerBookSkeleton";
+
 
 export default function BookPage() {
   const [bookData, setBookData] = useState([]);
@@ -55,7 +54,9 @@ export default function BookPage() {
 
   return (
     <div className="py-8 px-6 md:pl-72 2xl:pl-96 2xl:pr-32">
-      {
+      { loading ? (
+        <InnerBookSkeleton/>
+      ) : (
          <div className="lg:flex-row flex-col-reverse flex text-[#032b41]">
           <div>
             <div className="flex flex-col justify-start space-y-3 border-b border-[#e1e7ea] pb-4">
@@ -159,7 +160,7 @@ export default function BookPage() {
               <img className="" src={bookData.imageLink} />
             </figure>
           </div>
-        </div>
+        </div>)
                   }
     </div>
   );
