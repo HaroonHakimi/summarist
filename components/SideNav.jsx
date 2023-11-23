@@ -27,15 +27,10 @@ export default function SideNav({ padding, sideColor, display, isOpen }) {
   async function logOut() {
     await signOut(auth);
     dispatch(signOutUser());
-    dispatch(openLoginModal());
-
-    if (!user) {
-      dispatch(openLoginModal());
-    }
   }
 
   function logIn() {
-
+    dispatch(openLoginModal());
   }
 
   useEffect(() => {
