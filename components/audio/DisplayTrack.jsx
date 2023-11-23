@@ -27,7 +27,7 @@ export default function DisplayTrack({
                   alt="audio avatar"
                 />
               ) : (
-                <div className="audio__track--img skeleton-box"></div>
+                <div className="w-[48px] h-[48px] bg-[#f0efef]"></div>
               )}
             </figure>
           </div>
@@ -35,12 +35,12 @@ export default function DisplayTrack({
             {data.title ? (
               <div>{data.title}</div>
             ) : (
-              <div className="audio__track--details-title"></div>
+              <div className="w-[100%] h-[25px] bg-[#f0efef]"></div>
             )}
             {data.author ? (
               <div className="text-[#bac8ce]">{data.author}</div>
             ) : (
-              <div className="audio__track--details-author"></div>
+              <div className="w-[30%] h-[25px] bg-[#f0efef]"></div>
             )}
           </div>
         </div>

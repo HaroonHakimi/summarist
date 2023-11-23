@@ -8,19 +8,19 @@ export default function Landing() {
 
   return (
   <section id="landing">
-    <div class="container">
-      <div class="row">
-        <div class="landing__wrapper">
-          <div class="landing__content">
-            <div class="landing__content__title">
-              Gain more knowledge <br class="remove--tablet" />
+    <div className="container">
+      <div className="row">
+        <div className="landing__wrapper">
+          <div className="landing__content">
+            <div className="landing__content__title">
+              Gain more knowledge <br className="remove--tablet" />
               in less time
             </div>
-            <div class="landing__content__subtitle">
+            <div className="landing__content__subtitle">
               Great summaries for busy people,
-              <br class="remove--tablet" />
+              <br className="remove--tablet" />
               individuals who barely have time to read,
-              <br class="remove--tablet" />
+              <br className="remove--tablet" />
               and even people who don’t like to read.
             </div>
             <button
@@ -32,7 +32,7 @@ export default function Landing() {
             <LoginModal/>
             <SignupModal/>
           </div>
-          <figure class="landing__image--mask">
+          <figure className="landing__image--mask">
             <img src="/assets/landing.png" alt="landing" />
           </figure>
         </div>

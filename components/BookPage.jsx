@@ -120,7 +120,7 @@ export default function BookPage() {
 
               <div
                 onClick={addBookToLibrary}
-                className="text-[#0365f2]  text-lg flex items-center space-x-2 hover:text-[black] cursor-pointer"
+                className="text-[#0365f2]  text-lg flex items-center space-x-2 hover:text-[black] cursor-not-allowed"
               >
                 <BsBookmark />
                 <h1>Add Title to my Library</h1>

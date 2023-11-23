@@ -9,12 +9,13 @@ import { RxExit } from "react-icons/rx";
 import { LiaMarkerSolid } from "react-icons/lia";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { signOut } from "firebase/auth";
-import { signOutUser } from "@/redux/userSlice";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { setUser, signOutUser } from "@/redux/userSlice";
 import { auth } from "@/firebase";
 import { openLoginModal } from "@/redux/modalSlice";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 export default function SideNav({ padding, sideColor, display, isOpen }) {
   const router = useRouter();
@@ -33,7 +34,24 @@ export default function SideNav({ padding, sideColor, display, isOpen }) {
     }
   }
 
-  function logIn() {}
+  function logIn() {
+
+  }
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (!currentUser) return;
+      //handle redux actions
+      dispatch(
+        setUser({
+          email: currentUser.email,
+          password: currentUser.password,
+        })
+      );
+    });
+
+    return unsubscribe;
+  }, []);
 
   return (
     <>
@@ -89,7 +107,7 @@ export default function SideNav({ padding, sideColor, display, isOpen }) {
                 nodrop={"cursor-not-allowed"}
               />
 
-              <div>
+              <div className="cursor-pointer">
                 {user ? (
                   <NavList
                     onClick={logOut}

@@ -60,7 +60,7 @@ export default function LoginModal() {
   }
 
   async function guestSignIn(e) {
-    e.preventDefault();
+    // e.preventDefault();
     setGuestLoading(true);
     try {
 

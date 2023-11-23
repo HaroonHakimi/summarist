@@ -40,7 +40,7 @@ export function RecommendedBook() {
     <div className="flex w-full overflow-x-auto snap-x snap-mandatory no-scrollbar space-x-3.5">
       {loading ? (
         new Array(5).fill(0).map((_, index) => (
-          <BookSkeleton/>
+          <BookSkeleton key={index}/>
         ))
       ) : (
         recommendedData?.map((book) => (
