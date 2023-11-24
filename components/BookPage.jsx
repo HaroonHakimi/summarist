@@ -27,9 +27,9 @@ export default function BookPage() {
       dispatch(openLoginModal());
     }
 
-    if (bookData.subscriptionRequired && !user.subscribed) {
+    if (bookData.subscriptionRequired && !isPremium) {
       router.push("/choose-plan");
-    } else if (!bookData.subscriptionRequired || user.subscribed) {
+    } else if (!bookData.subscriptionRequired || isPremium) {
       router.push(`/player/${id}`);
     }
   }

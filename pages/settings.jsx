@@ -24,6 +24,7 @@ export default function Settings() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currUser) => {
+      console.log(currUser)
       if (!currUser) return;
       dispatch(
         setUser({

@@ -15,18 +15,27 @@ export default function Player() {
   const [loading, setLoading] = useState(false);
   const [size, setSize] = useState("normal");
 
-  async function fetchData() {
-    setLoading(true);
-    const { data } = await axios.get(
-      `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`
-    );
-    setBooks(data);
-    setLoading(false);
-  }
-
   useEffect(() => {
+    const fetchData = async () => {
+      if (!id) {
+        return;
+      }
+  
+      setLoading(true);
+      try {
+        const { data } = await axios.get(
+          `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`
+        );
+        setBooks(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
     fetchData();
-  }, []);
+  }, [id]);
 
   return (
     <div className="relative">
@@ -100,4 +109,3 @@ export default function Player() {
   );
 }
 
-// top-[39%]
