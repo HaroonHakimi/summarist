@@ -35,12 +35,12 @@ export default function DisplayTrack({
             {data.title ? (
               <div>{data.title}</div>
             ) : (
-              <div className="w-[100%] h-[25px] bg-[#f0efef]"></div>
+              <div className="w-[150px] h-[10px] bg-[#f0efef]"></div>
             )}
             {data.author ? (
               <div className="text-[#bac8ce]">{data.author}</div>
             ) : (
-              <div className="w-[30%] h-[25px] bg-[#f0efef]"></div>
+              <div className="w-[30%] h-[10px] bg-[#f0efef]"></div>
             )}
           </div>
         </div>

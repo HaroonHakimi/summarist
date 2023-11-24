@@ -19,6 +19,10 @@ export default function SelectedBooks() {
     setLoading(false);
   }
 
+  const imageFetched = () => {
+    setImageLoaded(true)
+  }
+
   useEffect(() => {
     fetchSelectedData();
   }, []);
@@ -44,7 +48,7 @@ export default function SelectedBooks() {
                 <span className="hidden md:flex w-[1px] h-[140px] mr-2 bg-[#bac8ce] "></span>
 
                 <div className="flex w-full md:justify-center">
-                  <figure className="max-w-[140px] flex  justify-center items-start">
+                  <figure className={`max-w-[140px] flex  justify-center items-start `}>
                     <img src={book.imageLink} alt="" />
                   </figure>
                   <div className="ml-6">

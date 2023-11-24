@@ -24,9 +24,16 @@ export default function SideNav({ padding, sideColor, display, isOpen }) {
   
   const user = useSelector((state) => state.user);
 
+
   async function logOut() {
-    await signOut(auth);
-    dispatch(signOutUser());
+    try {
+      await signOut(auth);
+      dispatch(signOutUser());
+    }
+    catch (error){
+      console.log(error)
+    }
+    
   }
 
   function logIn() {
@@ -35,6 +42,7 @@ export default function SideNav({ padding, sideColor, display, isOpen }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      console.log("Auth state changed:", currentUser)
       if (!currentUser) return;
       //handle redux actions
       dispatch(

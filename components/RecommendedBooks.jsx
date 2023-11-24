@@ -51,7 +51,7 @@ export function RecommendedBook() {
           >
             <div className="relative cursor-pointer   px-2 py-10 space-y-1 hover:bg-[#f0efef] flex flex-col items-start justify-start ">
               <figure className=" flex items-center">
-                <img src={book.imageLink} alt="" className="w-[172px]" />
+                <img src={book.imageLink} alt="" className={`w-[172px]`} />
               </figure>
               <div className="max-w-[172px] flex flex-col items-start justify-center space-y-1">
                 <h2 className="font-bold text-md leading-5">{book.title}</h2>
