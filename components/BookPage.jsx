@@ -9,6 +9,7 @@ import { BsBook, BsBookmark } from "react-icons/bs";
 import { HiOutlineLightBulb } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
 import InnerBookSkeleton from "./skeleton/InnerBookSkeleton";
+import { auth } from "@/firebase";
 
 
 export default function BookPage() {
@@ -18,20 +19,23 @@ export default function BookPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  const user = useSelector((state) => state.user);
+  // const user = useSelector((state) => state.user);
+  const user = auth.currentUser
   const dispatch = useDispatch();
   const isPremium = useSelector(state => state.user.premium)
 
   function buttonDestination() {
-    if (!user.currentUser) {
+    if (!user) {
       dispatch(openLoginModal());
     }
-
+    
+    else {
     if (bookData.subscriptionRequired && !isPremium) {
       router.push("/choose-plan");
     } else if (!bookData.subscriptionRequired || isPremium) {
       router.push(`/player/${id}`);
     }
+  }
   }
 
   function addBookToLibrary() {

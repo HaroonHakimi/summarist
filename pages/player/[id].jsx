@@ -6,12 +6,19 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { FaFont } from "react-icons/fa";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { auth } from "@/firebase";
+import { openLoginModal } from "@/redux/modalSlice";
+import { useDispatch } from "react-redux";
+import LoginModal from "@/components/modals/LoginModal";
+import SignupModal from "@/components/modals/SignupModal";
 
 export default function Player() {
-  const [books, setBooks] = useState([]);
   const router = useRouter();
+  const user = auth.currentUser
   const { id } = router.query;
-
+  const dispatch = useDispatch()
+  
+  const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [size, setSize] = useState("normal");
 
@@ -75,7 +82,8 @@ export default function Player() {
       </div>
 
       <div>
-        {loading ? (
+        {
+        loading ? (
           <div className="flex justify-center items-center">
             <AiOutlineLoading3Quarters className="w-20 h-20 spin__animation" />
           </div>
@@ -85,8 +93,27 @@ export default function Player() {
               <div className="border-b pb-5 flex w-full">
                 <h1 className="text-2xl font-bold">{books.title}</h1>
               </div>
-
-              <div
+              {
+                !user ? (
+                  <div className="flex justify-center items-center flex-col space-y-2">
+            <figure>
+              <img className="w-[460px]" src="/assets/login.png" />
+            </figure>
+            <div className="space-y-2 flex justify-center">
+              <h1 className="text-[24px] font-bold">
+                Log in to your account to read and to listen to the book
+              </h1>
+            </div>
+              <button 
+              onClick={() => dispatch(openLoginModal())}
+              className="btn max-w-[180px]">
+                Login
+                </button>
+                <LoginModal/>
+                <SignupModal/>
+          </div>
+                ) : (
+                  <div
                 className={`whitespace-pre-line pt-8 ${
                   size === "small" && "text-md"
                 } ${size === "medium" && "text-lg"} ${
@@ -95,9 +122,13 @@ export default function Player() {
               >
                 <p>{books.summary}</p>
               </div>
+                )
+              }
+              
             </div>
           </div>
-        )}
+        ) 
+      }
 
         <div className="fixed bottom-0   bg-[#142330] w-full h-[180px] md:h-[100px] z-10">
           <div className=" flex flex-col md:flex-row py-4 px-10 items-center md:justify-between text-white">

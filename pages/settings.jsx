@@ -1,18 +1,24 @@
 import SearchBar from "@/components/SearchBar";
 import SideNav from "@/components/SideNav";
+import LoginModal from "@/components/modals/LoginModal";
+import SignupModal from "@/components/modals/SignupModal";
 import { auth } from "@/firebase";
+import { openLoginModal } from "@/redux/modalSlice";
 import { setUser } from "@/redux/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Settings() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const user = useSelector((state) => state.user);
+  const [ding, setTrue] = useState(true)
+
+  // const user = useSelector((state) => state.user);
   const isPremium = useSelector((state) => state.user.premium);
+  const user = auth.currentUser
 
   console.log(isPremium)
 
@@ -62,20 +68,26 @@ export default function Settings() {
             </div>
             <div className="pt-6">
               <h1 className="font-bold text-lg">Email</h1>
-              <h1>{user.email.email}</h1>
+              <h1>{user.email}</h1>
             </div>
           </>
         ) : (
           <div className="flex justify-center items-center flex-col space-y-2">
             <figure>
-              <img className="w-[460px]" src="/assets/logo.png" />
+              <img className="w-[460px]" src="/assets/login.png" />
             </figure>
             <div className="space-y-2 flex justify-center">
               <h1 className="text-[24px] font-bold">
                 Log in to see your account details
               </h1>
-              <button button>Login</button>
             </div>
+              <button 
+              onClick={() => dispatch(openLoginModal())}
+              className="btn max-w-[180px]">
+                Login
+                </button>
+                <LoginModal/>
+                <SignupModal/>
           </div>
         )}
       </div>
