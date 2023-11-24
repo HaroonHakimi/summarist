@@ -34,7 +34,7 @@ export default function Player() {
 
       <SearchBar />
 
-      <div className="pl-2 fixed top-[39%] z-20">
+      <div className=" hidden md:flex pl-2 fixed top-[39%] z-20">
         <div className={`flex items-center py-5 `}>
           <div className=" flex items-center">
             <i
@@ -71,7 +71,7 @@ export default function Player() {
             <AiOutlineLoading3Quarters className="w-20 h-20 spin__animation" />
           </div>
         ) : (
-          <div className="py-8 px-6 md:pl-72 2xl:pl-96 2xl:pr-32 flex lg:justify-center pb-[120px] text-[#032b41]">
+          <div className="py-8 px-6 md:pl-72 2xl:pl-96 2xl:pr-32 flex lg:justify-center pb-[200px] md:pb-[120px] text-[#032b41]">
             <div className="flex flex-col items-start w-full lg:max-w-[750px]">
               <div className="border-b pb-5 flex w-full">
                 <h1 className="text-2xl font-bold">{books.title}</h1>
@@ -90,8 +90,8 @@ export default function Player() {
           </div>
         )}
 
-        <div className="fixed bottom-0  bg-[#142330] w-full h-[100px] z-10">
-          <div className="flex flex-col md:flex-row py-4 px-10 justify-between text-white">
+        <div className="fixed bottom-0   bg-[#142330] w-full h-[180px] md:h-[100px] z-10">
+          <div className=" flex flex-col md:flex-row py-4 px-10 items-center md:justify-between text-white">
             <AudioPlayer data={books} />
           </div>
         </div>

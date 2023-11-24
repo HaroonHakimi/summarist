@@ -61,7 +61,7 @@ export default function Settings() {
             </div>
             <div className="pt-6">
               <h1 className="font-bold text-lg">Email</h1>
-              <h1></h1>
+              <h1>{user.email.email}</h1>
             </div>
           </>
         ) : (

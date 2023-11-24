@@ -24,7 +24,7 @@ export default function DisplayTrack({
                 <img
                   className="block w-full h-full"
                   src={data.imageLink}
-                  alt="audio avatar"
+                  alt="audio"
                 />
               ) : (
                 <div className="w-[48px] h-[48px] bg-[#f0efef]"></div>
