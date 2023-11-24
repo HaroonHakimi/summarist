@@ -21,6 +21,8 @@ export default function SuggestedBooks({ title, subtitle }) {
 export function SuggestedBook() {
   const [suggestedData, setSuggestedData] = useState([]);
   const [loading, setLoading] = useState(false)
+  const [imageLoading, setImageLoading] = useState(true)
+
   const router = useRouter();
 
   async function fetchSuggestedData() {
@@ -30,6 +32,10 @@ export function SuggestedBook() {
     );
     setSuggestedData(data);
     setLoading(false)
+  }
+
+  const imageFetched = () => {
+    setImageLoading(false)
   }
 
   useEffect(() => {
@@ -50,7 +56,10 @@ export function SuggestedBook() {
             className="relative cursor-pointer px-2 py-10 space-y-1 hover:bg-[#f0efef] flex flex-col items-start justify-start"
           >
             <figure className=" flex items-center">
-              <img src={book.imageLink} alt="" className="w-[172px]" />
+              <img 
+              onLoad={imageFetched}
+              src={book.imageLink} 
+              className={`w-[172px] ${imageLoading && "w-100px h-110px bg-[#f0efef]"}`} />
             </figure>
             <div className="max-w-[172px] flex flex-col items-start justify-center space-y-1">
               <h2 className="font-bold text-md leading-5">{book.title}</h2>

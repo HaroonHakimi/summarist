@@ -73,7 +73,7 @@ export default function Player() {
         ) : (
           <div className="py-8 px-6 md:pl-72 2xl:pl-96 2xl:pr-32 flex lg:justify-center pb-[120px] text-[#032b41]">
             <div className="flex flex-col items-start w-full lg:max-w-[750px]">
-              <div className="border-b pb-5 flex ">
+              <div className="border-b pb-5 flex w-full">
                 <h1 className="text-2xl font-bold">{books.title}</h1>
               </div>
 

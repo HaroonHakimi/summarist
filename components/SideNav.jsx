@@ -12,28 +12,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { setUser, signOutUser } from "@/redux/userSlice";
 import { auth } from "@/firebase";
-import { openLoginModal } from "@/redux/modalSlice";
+import { closeLoginModal, openLoginModal } from "@/redux/modalSlice";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import LoginModal from "./modals/LoginModal";
+import SignupModal from "./modals/SignupModal";
 
 export default function SideNav({ padding, sideColor, display, isOpen }) {
   const router = useRouter();
   const dispatch = useDispatch();
-  const path = usePathname()
-  
-  const user = useSelector((state) => state.user);
+  const path = usePathname();
 
+  const user = useSelector((state) => state.user);
+  const open = useSelector((state) => state.modals.loginModalOpen);
 
   async function logOut() {
     try {
       await signOut(auth);
       dispatch(signOutUser());
+    } catch (error) {
+      console.log(error);
     }
-    catch (error){
-      console.log(error)
-    }
-    
   }
 
   function logIn() {
@@ -42,7 +42,7 @@ export default function SideNav({ padding, sideColor, display, isOpen }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log("Auth state changed:", currentUser)
+      console.log("Auth state changed:", currentUser);
       if (!currentUser) return;
       //handle redux actions
       dispatch(
@@ -59,7 +59,9 @@ export default function SideNav({ padding, sideColor, display, isOpen }) {
   return (
     <>
       <div
-        className={`${display} ${isOpen ? "flex" && "w-[70%]" : "hidden"}  z-10 md:flex   w-[250px] h-full  flex-col justify-between bg-[#f7faf9] fixed transition-all delay-600 ease-in-out ${padding}`}
+        className={`${display} ${
+          isOpen ? "flex" && "w-[70%]" : "hidden"
+        }  z-10 md:flex   w-[250px] h-full  flex-col justify-between bg-[#f7faf9] fixed transition-all delay-600 ease-in-out ${padding}`}
       >
         <div className="flex flex-col justify-center items-start pt-4">
           <div className="px-4 pb-10">
@@ -74,12 +76,12 @@ export default function SideNav({ padding, sideColor, display, isOpen }) {
               />
             </Link>
 
-            <NavList 
-            icon={<BsBookmark />} 
-            title={"My Library"} 
-            nodrop={"cursor-not-allowed"}
+            <NavList
+              icon={<BsBookmark />}
+              title={"My Library"}
+              nodrop={"cursor-not-allowed"}
             />
-            
+
             <NavList
               icon={<LiaMarkerSolid />}
               title={"Highlights"}
@@ -97,11 +99,11 @@ export default function SideNav({ padding, sideColor, display, isOpen }) {
           <div className="text-[#032b41] mt-12 ">
             <div>
               <Link href={"/settings"}>
-                <NavList 
-                icon={<AiOutlineSetting />} 
-                title={"Settings"}
-                className={path === "/settings" && "bg-green-400"}
-                 />
+                <NavList
+                  icon={<AiOutlineSetting />}
+                  title={"Settings"}
+                  className={path === "/settings" && "bg-green-400"}
+                />
               </Link>
 
               <NavList
@@ -111,14 +113,18 @@ export default function SideNav({ padding, sideColor, display, isOpen }) {
               />
 
               <div className="cursor-pointer">
-                {user ? (
-                  <NavList
-                    onClick={logOut}
-                    icon={<RxExit />}
-                    title={"Logout"}
-                  />
+                {user.email ? (
+                  <div onClick={logOut}>
+                    <NavList icon={<RxExit />} title={"Logout"} />
+                  </div>
                 ) : (
-                  <NavList onClick={logIn} icon={<RxExit />} title={"Login"} />
+                  <div>
+                    <div onClick={logIn}>
+                      <NavList icon={<RxExit />} title={"Login"} />
+                    </div>
+                      <LoginModal />
+                      <SignupModal/>
+                  </div>
                 )}
               </div>
             </div>
@@ -131,9 +137,7 @@ export default function SideNav({ padding, sideColor, display, isOpen }) {
 
 export function NavList({ title, icon, className, nodrop }) {
   return (
-    <div
-      className={`flex items-center py-5  ${nodrop}  hover:bg-[#f0efef] `}
-    >
+    <div className={`flex items-center py-5  ${nodrop}  hover:bg-[#f0efef] `}>
       <div className=" relative flex items-center">
         <i className="text-2xl mx-4">{icon}</i>
         <h2>{title}</h2>
@@ -144,3 +148,6 @@ export function NavList({ title, icon, className, nodrop }) {
     </div>
   );
 }
+
+// open={open}
+// onClose={() => dispatch(closeLoginModal())}

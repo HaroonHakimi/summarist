@@ -12,7 +12,6 @@ export default function Settings() {
   const router = useRouter();
 
   const user = useSelector((state) => state.user);
-  const uid = user.uid;
   const isPremium = useSelector((state) => state.user.premium);
 
   console.log(isPremium)

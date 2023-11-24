@@ -104,6 +104,11 @@ export default function LoginModal() {
       );
     });
 
+    if (isOpen)
+    {
+      setLoginError(false)
+    }
+
     return unsubscribe;
   }, []);
 

@@ -9,6 +9,7 @@ import SelectedBookSkeleton from "./skeleton/SelectedBookSkeleton";
 export default function SelectedBooks() {
   const [selectedData, setSelectedData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true)
 
   async function fetchSelectedData() {
     setLoading(true);
@@ -20,7 +21,7 @@ export default function SelectedBooks() {
   }
 
   const imageFetched = () => {
-    setImageLoaded(true)
+    setImageLoading(false)
   }
 
   useEffect(() => {
@@ -49,7 +50,10 @@ export default function SelectedBooks() {
 
                 <div className="flex w-full md:justify-center">
                   <figure className={`max-w-[140px] flex  justify-center items-start `}>
-                    <img src={book.imageLink} alt="" />
+                    <img 
+                    onLoad={imageFetched}
+                    className={`${imageLoading && "w-100px h-110px bg-[#f0efef]"}`} 
+                    src={book.imageLink} alt="" />
                   </figure>
                   <div className="ml-6">
                     <h1 className="font-bold mb-1">{book.title}</h1>

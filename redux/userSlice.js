@@ -6,7 +6,7 @@ const initialState = {
   plan: "basic",
   currentUser: null,
   uid: null,
-  premium: "",
+  premium: false,
 };
 
 const userSlice = createSlice({

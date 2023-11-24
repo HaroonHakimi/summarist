@@ -20,6 +20,7 @@ export default function BookPage() {
 
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const isPremium = useSelector(state => state.user.premium)
 
   function buttonDestination() {
     if (!user.currentUser) {

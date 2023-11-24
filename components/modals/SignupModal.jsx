@@ -96,7 +96,7 @@ export default function SignupModal() {
                 FirebaseError: Firebase: Error (auth/missing-email)
               </h1>
             )}
-            <form>
+            <form className="flex flex-col items-center">
               <div>
                 <input
                   type="email"
