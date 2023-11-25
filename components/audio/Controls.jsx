@@ -52,7 +52,7 @@ import {
   
     return (
       <>
-        <div className="w-2/6 audio__controls--wrapper">
+        <div className="w-full md:w-2/6 audio__controls--wrapper ">
           <div className="flex items-center justify-center gap-[40px]">
             <button
               className="rounded-full cursor-pointer"

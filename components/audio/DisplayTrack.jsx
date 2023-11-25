@@ -12,7 +12,7 @@ export default function DisplayTrack({
   
     return (
       <>
-        <div className="w-2/6 flex gap-[12px] audio__track--wrapper">
+        <div className="w-full md:w-2/6 flex justify-center gap-[12px] audio__track--wrapper">
           <audio
             src={data?.audioLink}
             ref={audioRef}

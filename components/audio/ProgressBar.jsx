@@ -21,7 +21,7 @@ export default function ProgressBar({
   
     return (
       <>
-        <div className="w-2/6 flex items-center gap-[16px] audio__progress--wrapper">
+        <div className="w-full md:w-2/6 flex justify-center gap-[16px] audio__progress--wrapper">
           <span className="text-white text-[14px]">
             {formatTime(timeProgress)}
           </span>

@@ -12,7 +12,7 @@ export default function AudioPlayer({ data }) {
 
   return (
     <>
-      <div className=" w-full h-[80px] mt-auto flex flex-col md:flex-row items-center  md:justify-between space-y-2 bg-[#042330] px-[40px] fixed md:bottom-0 md:left-0 z-[9998] audio__wrapper">
+      <div className=" w-full h-[80px] mt-auto flex flex-col md:flex-row items-center md:justify-between space-y-4 bg-[#042330] px-[40px] fixed md:bottom-0 md:left-0 z-[9998] audio__wrapper">
         <DisplayTrack
           data={data}
           audioRef={audioRef}
